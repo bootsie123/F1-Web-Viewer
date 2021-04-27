@@ -7,7 +7,13 @@
       <div class="field">
         <div class="select is-fullwidth" :class="{ 'is-loading': loading }">
           <select :value="value" @input="$emit('input', $event.target.value)" :disabled="disabled">
-            <option v-for="(option, i) in options" :key="i" :value="option.value" :disabled="option.disabled">
+            <option
+              v-for="(option, i) in options"
+              :key="i"
+              :value="option.value"
+              :disabled="option.disabled"
+              :selected="option.selected"
+            >
               {{ option.text }}
             </option>
           </select>

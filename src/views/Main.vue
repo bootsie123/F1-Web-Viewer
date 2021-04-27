@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import VueGridLayout from "vue-grid-layout";
+  import { GridLayout, GridItem } from "vue-grid-layout";
 
   import Feed from "@/components/Feed";
   import SlidePanel from "@/components/SlidePanel";
@@ -34,11 +34,11 @@
       Feed,
       SlidePanel,
       FeedManager,
-      GridLayout: VueGridLayout.GridLayout,
-      GridItem: VueGridLayout.GridItem
+      GridLayout,
+      GridItem
     },
     data: () => {
-      const sources = [
+      /*const sources = [
         "https://f1prodvod.akamaized.net/out/v1/473c63e75ebf41888cc58c168e3d9da6/33957307c5b848a6bea693bb400a7166/e4d49ef8077f4032a097e2b0c8a962bb/index.m3u8?hdnea=st=1619381275~exp=1619381575~acl=/out/v1/473c63e75ebf41888cc58c168e3d9da6/*~hmac=0b6755c3caf6a8cf446f80c32a36ae1cda604e6c7be675d977a6f174dadb258a",
         "https://f1prodvod.akamaized.net/out/v1/53f49cf136074f3ca22ebcbd7e9a5b70/33957307c5b848a6bea693bb400a7166/e4d49ef8077f4032a097e2b0c8a962bb/index.m3u8?hdnea=st=1619381365~exp=1619381665~acl=/out/v1/53f49cf136074f3ca22ebcbd7e9a5b70/*~hmac=251fbe73589e8186b11566835d76a93dbd620b5430365d7dd2dc839cd18dcf8e",
         "https://f1prodvod.akamaized.net/out/v1/9ae96c87b5114d889133d58fe6595318/33957307c5b848a6bea693bb400a7166/e4d49ef8077f4032a097e2b0c8a962bb/index.m3u8?hdnea=st=1619381371~exp=1619381671~acl=/out/v1/9ae96c87b5114d889133d58fe6595318/*~hmac=f8181c3097c811c6dc7d8685a498ed4b27c7faa74eb120a82a8402446ecd8223",
@@ -70,7 +70,9 @@
         layout.push(obj);
       }
 
-      return { layout };
+      return { layout };*/
+
+      return { layout: [] };
     }
   };
 </script>
