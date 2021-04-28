@@ -11,6 +11,8 @@
 </template>
 
 <script>
+  //TODO: Add pin button to make the grid item static
+
   import videojs from "video.js";
 
   import "videojs-contrib-quality-levels";

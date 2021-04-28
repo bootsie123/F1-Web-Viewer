@@ -101,6 +101,7 @@
         if (!eventId) return;
 
         this.sessionsLoading = true;
+        this.sessions = [];
 
         try {
           let sessions = await F1TV_API.getSessionFromEvent(eventId);
