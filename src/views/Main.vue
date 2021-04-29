@@ -1,26 +1,18 @@
 <template>
   <div class="background" id="layoutParent" @dragover.prevent>
-    <grid-layout
-      ref="gridLayout"
-      :layout.sync="layout"
-      is-draggable
-      is-resizable
-      :margin="[0, 0]"
-      responsive
-      useStyleCursor
-    >
+    <grid-layout ref="gridLayout" :layout.sync="layout" isDraggable isResizable :margin="[0, 0]">
       <grid-item
-        v-for="item in layout"
+        v-for="(item, i) in layout"
         :x="item.x"
         :y="item.y"
         :w="item.w"
         :h="item.h"
-        :i="item.i"
-        :key="item.i"
+        :i="String(i)"
+        :key="i"
         drag-allow-from=".vue-draggable-handle"
         drag-ignore-from=".no-drag"
       >
-        <Feed v-if="item.i !== 'drop'" @click="deleteFeed(item.i)" :options="item.options" />
+        <Feed @click="deleteFeed(i)" :playbackUrl="item.playbackUrl" :options="item.options" />
       </grid-item>
     </grid-layout>
     <SlidePanel>
@@ -30,6 +22,8 @@
 </template>
 
 <script>
+  //TODO: Ensure each item in the layout has a unique identifier (i)
+
   import { GridLayout, GridItem } from "vue-grid-layout";
   import { mapActions } from "vuex";
 
@@ -49,22 +43,25 @@
     computed: {
       layout: {
         get() {
-          return this.$store.getters["layout/layout"];
+          return this.$store.getters.layout;
         },
         set(val) {
-          this.$store.dispatch("layout/setLayout", val);
+          this.setLayout(val);
         }
       }
     },
     methods: {
       deleteFeed(i) {
-        this.setLayout(this.layout.filter(item => item.i !== i));
+        const newLayout = [...this.layout];
+
+        newLayout.splice(i, 1);
+
+        this.setLayout(newLayout);
       },
-      ...mapActions("layout", ["setLayout"])
+      ...mapActions(["setLayout"])
     },
     mounted() {
       this.$root.$refs.gridLayout = this.$refs.gridLayout;
-      this.$store.dispatch("layout/setLayout", [{ x: 0, y: 0, w: 2, h: 2, i: "0" }]);
     }
   };
 </script>
@@ -72,10 +69,7 @@
 <style lang="scss" scoped>
   .background {
     min-height: 100vh;
-    background: url("~@/assets/f1-logo.svg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 75%;
+    background: #fdfdfd;
   }
 
   @media all and (display-mode: fullscreen) {

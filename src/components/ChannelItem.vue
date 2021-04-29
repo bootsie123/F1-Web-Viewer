@@ -29,7 +29,7 @@
       };
     },
     computed: {
-      ...mapGetters("layout", ["layout"])
+      ...mapGetters(["layout"])
     },
     methods: {
       drag() {
@@ -69,7 +69,7 @@
             this.dragPos = {
               x: this.layout[index].x,
               y: this.layout[index].y,
-              i: index
+              i: String(index)
             };
           } else {
             gridLayout.dragEvent("dragend", "drop", newPos.x, newPos.y, 1, 1);
@@ -94,9 +94,11 @@
             i: this.dragPos.i,
             options: {
               controls: true,
-              preload: "auto",
-              src: this.channel.playbackUrl
-            }
+              preload: "none",
+              width: 50,
+              height: 50
+            },
+            playbackUrl: this.channel.playbackUrl
           });
 
           this.setLayout(newLayout);
@@ -111,7 +113,7 @@
       mouseInGrid(mouse, rect) {
         return mouse.x > rect.left && mouse.x < rect.right && mouse.y > rect.top && mouse.y < rect.bottom;
       },
-      ...mapActions("layout", ["addToLayout", "setLayout"])
+      ...mapActions(["addToLayout", "setLayout"])
     },
     mounted() {
       document.addEventListener("dragover", this.dragOver);

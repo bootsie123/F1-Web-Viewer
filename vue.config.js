@@ -1,5 +1,8 @@
 module.exports = {
   outputDir: "./dist/web",
+  devServer: {
+    proxy: "http://localhost:3000"
+  },
   pages: {
     index: {
       entry: "./src/main.js",

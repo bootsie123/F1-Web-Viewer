@@ -1,9 +1,16 @@
-import axios from "@/store/axios";
+import api from "@/store/axios";
+import axios from "axios";
 
 const STREAM_TYPE = "BIG_SCREEN_HLS";
 const VIDEO_QUERY = `2.0/R/ENG/${STREAM_TYPE}/ALL/PAGE/SEARCH/VOD/F1_TV_Pro_Annual/2`;
 
 export default {
+  authenticate: (username, password) => {
+    return axios.post("/authenticate", {
+      Login: username,
+      Password: password
+    });
+  },
   getSeasons: () => {
     let seasons = [];
 
@@ -17,7 +24,7 @@ export default {
     return seasons;
   },
   getEventsFromSeason: year => {
-    return axios.get(VIDEO_QUERY, {
+    return api.get(VIDEO_QUERY, {
       params: {
         filter_season: year,
         filter_objectSubtype: "Meeting",
@@ -27,7 +34,7 @@ export default {
     });
   },
   getSessionFromEvent: async eventId => {
-    return axios.get(VIDEO_QUERY, {
+    return api.get(VIDEO_QUERY, {
       params: {
         filter_MeetingKey: eventId,
         sortOrder: "asc",
@@ -36,6 +43,13 @@ export default {
     });
   },
   getChannelsFromSession: async contentId => {
-    return axios.get(`2.0/R/ENG/${STREAM_TYPE}/ALL/CONTENT/VIDEO/${contentId}/F1_TV_Pro_Annual/2`);
+    return api.get(`2.0/R/ENG/${STREAM_TYPE}/ALL/CONTENT/VIDEO/${contentId}/F1_TV_Pro_Annual/2`);
+  },
+  getAuthenticatedUrl: (url, token) => {
+    return api.get(`1.0/R/ENG/${STREAM_TYPE}/ALL/${url}`, {
+      headers: {
+        ascendontoken: token
+      }
+    });
   }
 };

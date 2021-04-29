@@ -6,7 +6,7 @@
     <div @click="clicked" class="delete-handle modifier">
       <BaseIconButton icon="ri-close-line" />
     </div>
-    <video ref="videoPlayer" class="video-js vjs-fill no-drag" />
+    <video ref="videoPlayer" class="video-js vjs-fill no-drag" :class="{ hide: !initialized }" />
   </div>
 </template>
 
@@ -18,6 +18,8 @@
   import "videojs-contrib-quality-levels";
   import "videojs-http-source-selector";
 
+  import F1TV_API from "@/lib/F1TV_API";
+
   import BaseIconButton from "@/components/BaseIconButton";
 
   export default {
@@ -26,17 +28,49 @@
       BaseIconButton
     },
     props: {
-      options: Object
+      options: Object,
+      playbackUrl: String
+    },
+    data() {
+      return {
+        initialized: false
+      };
+    },
+    watch: {
+      options() {
+        if (!this.player) {
+          this.initPlayer();
+        }
+      }
     },
     methods: {
       clicked(event) {
         this.$emit("click", event.target);
-      }
-    },
-    mounted() {
-      this.player = videojs(this.$refs.videoPlayer, this.options);
+      },
+      async initPlayer() {
+        this.player = videojs(this.$refs.videoPlayer, this.options);
+        this.player.httpSourceSelector();
 
-      this.player.httpSourceSelector();
+        this.initialized = true;
+
+        try {
+          let token = this.$store.getters.token;
+
+          if (!token) {
+            const res = await this.$store.dispatch("authenticate");
+
+            token = res.data.subscriptionToken;
+          }
+
+          const res = await F1TV_API.getAuthenticatedUrl(this.playbackUrl, token);
+
+          if (res.data?.resultObj?.url) {
+            this.player.src(res.data.resultObj.url);
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      }
     },
     beforeDestroy() {
       if (this.player) {
@@ -50,6 +84,10 @@
   .group {
     width: 100%;
     height: 100%;
+  }
+
+  .hide {
+    background: transparent !important;
   }
 
   .modifier {

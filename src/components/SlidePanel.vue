@@ -24,7 +24,7 @@
     },
     data() {
       return {
-        expanded: false
+        expanded: true
       };
     },
     methods: {
