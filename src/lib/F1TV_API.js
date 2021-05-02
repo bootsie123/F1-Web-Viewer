@@ -2,7 +2,7 @@ import api from "@/store/axios";
 import axios from "axios";
 
 const STREAM_TYPE = "BIG_SCREEN_HLS";
-const VIDEO_QUERY = `2.0/R/ENG/${STREAM_TYPE}/ALL/PAGE/SEARCH/VOD/F1_TV_Pro_Annual/2`;
+const VIDEO_QUERY = `2.0/R/ENG/${STREAM_TYPE}/ALL/PAGE/SEARCH/VOD/F1_TV_Pro_Annual/2?`;
 
 export default {
   authenticate: (username, password) => {
