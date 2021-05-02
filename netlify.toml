@@ -4,10 +4,8 @@
   environment = { VUE_APP_NETLIFY = true }
 
 [dev]
-  publish = "dist"
   command = "npm run serve"
   port = 3000
-  environment = { VUE_APP_NETLIFY = true }
 
 [functions]
   directory = "functions"

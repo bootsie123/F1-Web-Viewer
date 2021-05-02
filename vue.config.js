@@ -4,7 +4,6 @@ process.env.VUE_APP_VERSION = info.version;
 process.env.VUE_APP_HOMEPAGE = info.homepage;
 
 module.exports = {
-  outputDir: "./dist/web",
   devServer: {
     proxy: "http://localhost:3000"
   },
