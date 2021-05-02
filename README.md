@@ -1,5 +1,8 @@
 # F1 Web Viewer
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a2267ed1-c542-46d4-8f08-ce6c1847d270/deploy-status)](https://f1webviewer.netlify.app)
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/bootsie123/f1-web-viewer)
+
 A simple grid-based web viewer for Formula 1. Simply login with your F1TV credentials, select the season, event, and session, and then drag and drop the channels you want to watch into the grid!
 
 ![](assets/screenshot.png)
