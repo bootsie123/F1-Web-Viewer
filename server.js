@@ -15,7 +15,11 @@ if (app.get("env") === "production") {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false
+  })
+);
 app.use(compression());
 app.use(cors({ origin: true }));
 app.use(history());
