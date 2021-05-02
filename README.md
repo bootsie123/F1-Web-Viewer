@@ -82,13 +82,13 @@ docker run -d -p 8080:3000 bootsie123/f1-web-viewer
 
 ## FAQ
 
-**What credentials do I use to login?**
+#### What credentials do I use to login?
 For login, you need an F1TV account and an active subscription. To login, simply open the sliding panel on the right and enter the same username and password you use for F1TV
 
-**What happens to my credentials after login?**
+#### What happens to my credentials after login?
 During login, your credentials are exchanged with the F1TV servers which in turn give back an access token. This token is stored locally through your browser and is automatically loaded after the first login. However, if this token expires simply logout and relogin
 
-**Will my layout be saved?**
+#### Will my layout be saved?
 The layout is automatically saved locally to your browser. It will also be loaded automatically when you revisit the sapplication. However, if you clear your browser cache you will loose your layout
 
 ## Acknowledgements
