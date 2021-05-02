@@ -1,6 +1,6 @@
 {
   "name": "f1-web-viewer",
-  "description": "",
+  "description": "A simple grid-based web viewer for Formula 1",
   "author": "bootsie123",
   "version": "0.0.1",
   "private": true,
