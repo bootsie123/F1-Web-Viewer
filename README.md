@@ -96,6 +96,10 @@ During login, your credentials are exchanged with the F1TV servers which in turn
 
 The layout is automatically saved locally to your browser. It will also be loaded automatically when you revisit the sapplication. However, if you clear your browser cache you will loose your layout
 
+#### Is it possible to sync the feeds?
+
+Not yet, but that feature is currently being developed!
+
 ## Acknowledgements
 
 **Special thanks To:** [SoMuchForSubtlety](https://github.com/SoMuchForSubtlety) (F1 Viewer) and [robvdpol](https://github.com/robvdpol) (RaceControl) for giving me a framework to work with and mapping out the F1TV API!
