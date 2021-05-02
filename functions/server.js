@@ -32,7 +32,7 @@ app.use(
 );
 
 app.post(
-  process.env.VUE_APP_NETLIFY ? "/.netlify/functions/server/authenticate" : "/authenticate",
+  process.env.AWS_EXECUTION_ENV ? "/.netlify/functions/server/authenticate" : "/authenticate",
   async (req, res) => {
     try {
       const data = await fetch("https://api.formula1.com/v2/account/subscriber/authenticate/by-password", {
@@ -59,7 +59,7 @@ app.post(
   }
 );
 
-if (!process.env.VUE_APP_NETLIFY) {
+if (!process.env.AWS_EXECUTION_ENV) {
   app.listen(PORT, () => console.info(`Server running on port ${PORT}`));
 }
 
