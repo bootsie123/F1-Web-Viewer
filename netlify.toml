@@ -1,7 +1,7 @@
 [build]
   publish = "dist"
   command = "npm run build"
-  environment = { VUE_APP_NETLIFY = true }
+  environment = { VUE_APP_NETLIFY = "true" }
 
 [dev]
   command = "npm run serve"
