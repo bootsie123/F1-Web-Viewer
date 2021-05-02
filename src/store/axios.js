@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const CORS_PROXY = "https://cors-proxy.htmldriven.com/?url=";
+const CORS_PROXY = "https://damp-mouse-7bce.f1webviewer.workers.dev/?";
 
 const http = axios.create({
   baseURL: CORS_PROXY + "https://f1tv.formula1.com"
