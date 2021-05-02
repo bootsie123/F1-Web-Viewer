@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const CORS_PROXY = "https://cors-proxy.htmldriven.com/?url=";
+
 const http = axios.create({
-  baseURL: "https://f1tv.formula1.com"
+  baseURL: CORS_PROXY + "https://f1tv.formula1.com"
 });
 
 const production = process.env.VUE_APP_NODE_ENV === "production";
