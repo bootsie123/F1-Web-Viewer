@@ -43,6 +43,10 @@
 </script>
 
 <style lang="scss" scoped>
+  .container {
+    padding-bottom: 2em;
+  }
+
   .subtitle {
     padding-top: 0.5em;
   }

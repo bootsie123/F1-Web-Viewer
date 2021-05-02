@@ -16,7 +16,7 @@ http.interceptors.response.use(
     } else if (err.request && !production) {
       console.error(err.request);
     } else {
-      console.error("Error", err.message);
+      console.error("Error", err);
     }
 
     if (!production) {

@@ -16,12 +16,13 @@
       iconToggle: String,
       iconToggleHover: String,
       toggle: Boolean,
+      initValue: Boolean,
       round: Boolean
     },
     data() {
       return {
         hover: false,
-        toggled: false
+        toggled: this.initValue
       };
     },
     computed: {

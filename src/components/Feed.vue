@@ -3,17 +3,25 @@
     <div class="vue-draggable-handle modifier">
       <BaseIconButton icon="ri-drag-move-line" />
     </div>
-    <div @click="clicked" class="delete-handle modifier">
-      <BaseIconButton icon="ri-close-line" />
+    <div class="right-handle modifier">
+      <BaseIconButton
+        icon="ri-pushpin-line"
+        iconToggle="ri-pushpin-2-fill"
+        iconHover="ri-pushpin-2-line"
+        iconToggleHover="ri-pushpin-2-fill"
+        toggle
+        :initValue="this.static"
+        @click="$emit('togglePin')"
+      />
+      <BaseIconButton icon="ri-close-line" @click="$emit('delete')" />
     </div>
     <video ref="videoPlayer" class="video-js vjs-fill no-drag" :class="{ hide: !initialized }" />
   </div>
 </template>
 
 <script>
-  //TODO: Add pin button to make the grid item static
-
   import videojs from "video.js";
+  import { mapGetters } from "vuex";
 
   import "videojs-contrib-quality-levels";
   import "videojs-http-source-selector";
@@ -29,18 +37,26 @@
     },
     props: {
       options: Object,
-      playbackUrl: String
+      playbackUrl: String,
+      static: Boolean
     },
     data() {
       return {
-        initialized: false
+        initialized: false,
+        player: null
       };
+    },
+    computed: {
+      ...mapGetters(["token"])
     },
     watch: {
       options() {
         if (!this.player) {
           this.initPlayer();
         }
+      },
+      async token() {
+        this.updateSource();
       }
     },
     methods: {
@@ -53,23 +69,25 @@
 
         this.initialized = true;
 
+        this.updateSource();
+      },
+      async updateSource() {
+        if (!this.token) return;
+
         try {
-          let token = this.$store.getters.token;
+          const res = await F1TV_API.getAuthenticatedUrl(this.playbackUrl, this.token);
 
-          if (!token) {
-            const res = await this.$store.dispatch("authenticate");
-
-            token = res.data.subscriptionToken;
-          }
-
-          const res = await F1TV_API.getAuthenticatedUrl(this.playbackUrl, token);
-
-          if (res.data?.resultObj?.url) {
+          if (this.player && res.data?.resultObj?.url) {
             this.player.src(res.data.resultObj.url);
           }
         } catch (err) {
           console.error(err);
         }
+      }
+    },
+    mounted() {
+      if (this.options) {
+        this.initPlayer();
       }
     },
     beforeDestroy() {
@@ -93,8 +111,6 @@
   .modifier {
     display: none;
     position: absolute;
-    height: 20px;
-    width: 20px;
     z-index: 100;
     color: white;
   }
@@ -103,7 +119,7 @@
     display: block;
   }
 
-  .delete-handle {
+  .right-handle {
     right: 0;
   }
 

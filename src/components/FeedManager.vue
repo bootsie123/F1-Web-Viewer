@@ -1,6 +1,5 @@
 <template>
-  <div class="container">
-    <h1 class="title has-text-centered">Content Manager</h1>
+  <div>
     <div class="container settings">
       <BaseDropdown
         label="Season"
@@ -29,16 +28,18 @@
 </template>
 
 <script>
+  import { mapGetters } from "vuex";
+
   import F1TV_API from "@/lib/F1TV_API";
 
-  import BaseDropdown from "@/components/BaseDropdown";
   import ChannelGrid from "@/components/ChannelGrid";
+  import BaseDropdown from "@/components/BaseDropdown";
 
   export default {
     name: "FeedManager",
     components: {
-      BaseDropdown,
-      ChannelGrid
+      ChannelGrid,
+      BaseDropdown
     },
     data() {
       return {
@@ -63,7 +64,8 @@
       },
       seasons() {
         return [{ text: "Select season", ...this.defaultValues }, ...F1TV_API.getSeasons()];
-      }
+      },
+      ...mapGetters(["authenticated"])
     },
     watch: {
       async season(year) {

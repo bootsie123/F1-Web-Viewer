@@ -90,6 +90,7 @@
   }
 
   .pulloutContainer {
+    position: relative;
     height: 100%;
     width: 25vw;
     padding: 1em;

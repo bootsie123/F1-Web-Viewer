@@ -12,6 +12,7 @@
 </template>
 
 <script>
+  import { v4 as uuidv4 } from "uuid";
   import { mapGetters, mapActions } from "vuex";
 
   export default {
@@ -69,7 +70,7 @@
             this.dragPos = {
               x: this.layout[index].x,
               y: this.layout[index].y,
-              i: String(index)
+              i: uuidv4()
             };
           } else {
             gridLayout.dragEvent("dragend", "drop", newPos.x, newPos.y, 1, 1);
@@ -94,7 +95,7 @@
             i: this.dragPos.i,
             options: {
               controls: true,
-              preload: "none",
+              preload: "auto",
               width: 50,
               height: 50
             },

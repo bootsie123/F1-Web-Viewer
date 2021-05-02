@@ -43,7 +43,7 @@ app.post("/authenticate", async (req, res) => {
 
     const json = await data.json();
 
-    res.status(200).json(json.data);
+    res.status(json.Status || 200).json(json);
   } catch (err) {
     console.error(err);
 
