@@ -6,8 +6,8 @@
   "private": true,
   "homepage": "https://github.com/bootsie123/F1-Web-Viewer",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
+    "start": "node functions/server.js",
+    "dev": "nodemon functions/server.js",
     "build": "vue-cli-service build",
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint"
@@ -24,6 +24,7 @@
     "helmet": "^4.4.1",
     "node-fetch": "^2.6.1",
     "remixicon": "^2.5.0",
+    "serverless-http": "^2.7.0",
     "uuid": "^8.3.2",
     "video.js": "^7.12.1",
     "videojs-contrib-quality-levels": "^2.1.0",

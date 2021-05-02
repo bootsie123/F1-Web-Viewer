@@ -31,7 +31,7 @@
     </grid-layout>
     <SlidePanel>
       <div class="container relative">
-        <h1 class="title has-text-centered">{{ authenticated ? "Content Manager" : "Login" }}</h1>
+        <h1 class="title has-text-centered">{{ authenticated ? "Content Manager" : "F1 Web Viewer - Login" }}</h1>
         <BaseIconButton
           v-if="authenticated"
           class="logout"

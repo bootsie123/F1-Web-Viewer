@@ -6,7 +6,7 @@ const VIDEO_QUERY = `2.0/R/ENG/${STREAM_TYPE}/ALL/PAGE/SEARCH/VOD/F1_TV_Pro_Annu
 
 export default {
   authenticate: (username, password) => {
-    return axios.post("/authenticate", {
+    return axios.post(process.env.VUE_APP_NETLIFY ? "/.netlify/functions/server/authenticate" : "/authenticate", {
       Login: username,
       Password: password
     });
