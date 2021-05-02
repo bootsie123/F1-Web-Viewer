@@ -2,8 +2,8 @@
   <div class="pullout" :class="{ expand: expanded }">
     <BaseIconButton
       class="pulloutToggle"
-      icon="ri-arrow-left-s-line"
-      iconToggle="ri-arrow-right-s-line"
+      icon="ri-arrow-right-s-line"
+      iconToggle="ri-arrow-left-s-line"
       toggle
       round
       @click="togglePullout"
@@ -65,9 +65,9 @@
     justify-content: flex-end;
     transition: all 0.8s ease;
     -webkit-animation: all 0.8s ease;
-    transform: translateX(calc(100% - 1.5rem - 0.5em));
-    -webkit-transform: translateX(calc(100% - 1.5rem - 0.5em));
-    -ms-transform: translateX(calc(100% - 1.5rem - 0.5em));
+    transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    -ms-transform: translateX(100%);
     z-index: 100;
   }
 
@@ -78,8 +78,10 @@
   }
 
   .pulloutToggle {
+    position: absolute;
+    top: 50%;
+    left: -2em;
     min-width: 24px;
-    margin-right: 0.5em;
     box-shadow: 0 0 10px 0px #8a8a8a57;
     background-color: #fff;
     z-index: 105;
