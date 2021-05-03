@@ -21,19 +21,28 @@
     },
     computed: {
       channelsSorted() {
-        const newArray = [...this.channels];
+        const onBoards = [];
+        const additional = [];
 
-        return newArray.sort((chan1, chan2) => {
-          const name1 = chan1.driverLastName ? chan1.driverLastName : chan1.title;
-          const name2 = chan2.driverLastName ? chan2.driverLastName : chan2.title;
-
-          if (name1 < name2) {
-            return -1;
+        for (let channel of this.channels) {
+          if (channel.type !== "additional") {
+            onBoards.push(channel);
+          } else {
+            additional.push(channel);
           }
+        }
 
-          if (name1 > name2) {
-            return 1;
-          }
+        this.sortByProp(onBoards, "driverLastName");
+        this.sortByProp(additional, "title");
+
+        return additional.concat(onBoards);
+      }
+    },
+    methods: {
+      sortByProp(array, prop) {
+        array.sort((val1, val2) => {
+          if (val1[prop] < val2[prop]) return -1;
+          if (val1[prop] > val2[prop]) return 1;
 
           return 0;
         });

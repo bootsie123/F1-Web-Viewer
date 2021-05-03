@@ -143,7 +143,7 @@
           const container = channels.data.resultObj.containers[0];
 
           if (container.metadata.additionalStreams) {
-            this.channels = channels.data.resultObj.containers[0].metadata.additionalStreams.map(channel => {
+            const mappedChannels = channels.data.resultObj.containers[0].metadata.additionalStreams.map(channel => {
               return {
                 driverFirstName: channel.driverFirstName,
                 driverLastName: channel.driverLastName,
@@ -153,6 +153,14 @@
                 type: channel.type
               };
             });
+
+            mappedChannels.push({
+              title: "WORLD",
+              type: "additional",
+              playbackUrl: container.contentId
+            });
+
+            this.channels = mappedChannels;
           } else {
             this.channels = [
               {
