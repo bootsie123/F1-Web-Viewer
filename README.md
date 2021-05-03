@@ -18,6 +18,11 @@ A simple grid-based web viewer for Formula 1. Simply login with your F1TV creden
 - Easy to use and modern web interface
 - Docker support
 
+#### Coming Soon
+
+- Support to sync feeds
+- Ability to save multiple layouts
+
 ## Installation
 
 Clone the repository using [git](https://git-scm.com/) and then use [npm](https://www.npmjs.com/) to install the node modules.
