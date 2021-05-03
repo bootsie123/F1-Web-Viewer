@@ -102,7 +102,7 @@ During login, your credentials are exchanged with the F1TV servers which in turn
 
 #### Will my layout be saved?
 
-The layout is automatically saved locally to your browser. It will also be loaded automatically when you revisit the sapplication. However, if you clear your browser cache you will loose your layout
+The layout is automatically saved locally to your browser. It will also be loaded automatically when you revisit the application. However, if you clear your browser cache you will loose your layout
 
 #### Is it possible to sync the feeds?
 
