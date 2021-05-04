@@ -157,7 +157,7 @@
             mappedChannels.push({
               title: "WORLD",
               type: "additional",
-              playbackUrl: container.contentId
+              playbackUrl: `CONTENT/PLAY?contentId=${container.contentId}`
             });
 
             this.channels = mappedChannels;
