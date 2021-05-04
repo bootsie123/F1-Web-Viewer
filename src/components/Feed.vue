@@ -4,6 +4,7 @@
       <BaseIconButton icon="ri-drag-move-line" />
     </div>
     <div class="right-handle modifier">
+      <BaseIconButton icon="ri-timer-line" iconHover="ri-timer-fill" @click="$emit('syncFeeds', playerTime)" />
       <BaseIconButton
         icon="ri-pushpin-line"
         iconToggle="ri-pushpin-2-fill"
@@ -38,7 +39,11 @@
     props: {
       options: Object,
       playbackUrl: String,
-      static: Boolean
+      static: Boolean,
+      time: {
+        type: Number,
+        default: 0
+      }
     },
     data() {
       return {
@@ -47,6 +52,9 @@
       };
     },
     computed: {
+      playerTime() {
+        return this.player?.currentTime();
+      },
       ...mapGetters(["token"])
     },
     watch: {
@@ -54,6 +62,9 @@
         if (!this.player) {
           this.initPlayer();
         }
+      },
+      time(time) {
+        this.player?.currentTime(time);
       },
       async token() {
         this.updateSource();

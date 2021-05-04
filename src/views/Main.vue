@@ -22,10 +22,12 @@
       >
         <Feed
           @togglePin="setItemStatic(i)"
+          @syncFeeds="syncFeeds"
           @delete="deleteItem(i)"
           :playbackUrl="item.playbackUrl"
           :options="item.options"
           :static="item.static"
+          :time="item.time"
         />
       </grid-item>
     </grid-layout>
@@ -81,6 +83,15 @@
       },
       layoutUpdated(layout) {
         this.saveLayout(layout);
+      },
+      syncFeeds(time) {
+        this.setLayout(
+          this.layout.map(feed => {
+            feed.time = time;
+
+            return feed;
+          })
+        );
       },
       ...mapActions(["setLayout", "setItemStatic", "saveLayout"]),
       ...mapMutations(["logout"])
