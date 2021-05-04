@@ -12,6 +12,7 @@ A simple grid-based web viewer for Formula 1. Simply login with your F1TV creden
 - An easy to use grid system to customize your layout
 - Ability to drag and drop feeds into the grid
 - Ability to pin feeds to prevent them from moving
+- Support for syncing feeds
 - Support for resizing any feed in the layout
 - Ability to change the audio source and quality for any feed
 - Picture in picture support
@@ -20,7 +21,6 @@ A simple grid-based web viewer for Formula 1. Simply login with your F1TV creden
 
 #### Coming Soon
 
-- Support to sync feeds
 - Ability to save multiple layouts
 
 ## Installation
@@ -106,7 +106,7 @@ The layout is automatically saved locally to your browser. It will also be loade
 
 #### Is it possible to sync the feeds?
 
-Not yet, but that feature is currently being developed!
+Yes! Just click on the clock icon on the feed you want all the other feeds to sync up to
 
 ## Acknowledgements
 
