@@ -78,6 +78,16 @@
         this.player = videojs(this.$refs.videoPlayer, this.options);
         this.player.httpSourceSelector();
 
+        this.player.on("loadeddata", () => {
+          const tracks = this.player.remoteTextTracks();
+
+          for (let i = 0; i < tracks.length; i++) {
+            if (tracks[i].kind === "subtitles") {
+              tracks[i].mode = "hidden";
+            }
+          }
+        });
+
         this.initialized = true;
 
         this.updateSource();
