@@ -9,3 +9,8 @@
 
 [functions]
   directory = "functions"
+
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 200
