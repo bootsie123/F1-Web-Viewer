@@ -57,6 +57,8 @@
         ]);
 
         this.setActiveLayout(id);
+
+        this.newLayoutName = "";
       },
       deleteLayout(i) {
         this.layouts.splice(i, 1);
