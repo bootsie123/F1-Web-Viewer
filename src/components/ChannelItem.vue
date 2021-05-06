@@ -131,8 +131,7 @@
   }
 
   .channel:hover {
-    box-shadow: 0 0 14px 0 #e4e4e4;
-    background: #e6e6e6;
+    background: #f8f8f8;
     cursor: grab;
   }
 

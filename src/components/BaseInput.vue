@@ -1,5 +1,5 @@
 <template>
-  <div class="field">
+  <div :class="{ field: isField }">
     <label v-if="label" class="label">
       {{ label }}
     </label>
@@ -65,7 +65,11 @@
       validatorMsg: String,
       name: String,
       required: Boolean,
-      value: String
+      value: String,
+      isField: {
+        type: Boolean,
+        default: true
+      }
     },
     data() {
       return {

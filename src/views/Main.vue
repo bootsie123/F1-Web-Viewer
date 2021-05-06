@@ -33,16 +33,20 @@
     </grid-layout>
     <SlidePanel>
       <div class="container relative">
-        <h1 class="title has-text-centered">{{ authenticated ? "Content Manager" : "F1 Web Viewer - Login" }}</h1>
-        <BaseIconButton
-          v-if="authenticated"
-          class="logout"
-          @click="logout()"
-          icon="ri-logout-box-line"
-          iconHover="ri-logout-box-fill"
-        />
-        <FeedManager v-if="authenticated" />
-        <Login v-else />
+        <template v-if="authenticated">
+          <BaseTabs :tabs="tabs" keepAlive />
+          <BaseIconButton
+            v-if="authenticated"
+            class="logout"
+            @click="logout()"
+            icon="ri-logout-box-line"
+            iconHover="ri-logout-box-fill"
+          />
+        </template>
+        <template v-else>
+          <h1 class="title has-text-centered">F1 Web Viewer - Login</h1>
+          <Login />
+        </template>
         <Info />
       </div>
     </SlidePanel>
@@ -55,22 +59,30 @@
 
   import Feed from "@/components/Feed";
   import SlidePanel from "@/components/SlidePanel";
-  import FeedManager from "@/components/FeedManager";
   import Login from "@/components/Login";
   import Info from "@/components/Info";
   import BaseIconButton from "@/components/BaseIconButton";
+  import BaseTabs from "@/components/BaseTabs";
 
   export default {
     name: "Main",
     components: {
       Feed,
       SlidePanel,
-      FeedManager,
       Login,
       Info,
       GridLayout,
       GridItem,
-      BaseIconButton
+      BaseIconButton,
+      BaseTabs
+    },
+    data() {
+      return {
+        tabs: [
+          { title: "Manage Feeds", component: "FeedManager", icon: "ri-movie-line" },
+          { title: "Layout Settings", component: "LayoutManager", icon: "ri-layout-masonry-line" }
+        ]
+      };
     },
     computed: {
       ...mapGetters(["authenticated", "layout"])

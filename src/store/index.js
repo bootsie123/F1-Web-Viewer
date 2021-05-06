@@ -7,6 +7,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    layouts: JSON.parse(localStorage.getItem("layouts")) || [],
     layout: JSON.parse(localStorage.getItem("layout")) || [],
     token: localStorage.getItem("token") || "",
     username: "",
@@ -14,6 +15,7 @@ export default new Vuex.Store({
     authError: ""
   },
   getters: {
+    layouts: state => state.layouts,
     layout: state => state.layout,
     token: state => state.token,
     authError: state => state.authError,
@@ -24,14 +26,32 @@ export default new Vuex.Store({
       commit("updateLayout", layout);
       dispatch("saveLayout", layout);
     },
+    setActiveLayout({ commit, dispatch, state }, id) {
+      const layouts = [...state.layouts];
+
+      for (let layout of layouts) {
+        if (layout.id === id) {
+          layout.active = true;
+
+          dispatch("setLayout", layout.layout);
+        } else {
+          layout.active = false;
+        }
+      }
+
+      commit("updateLayouts", layouts);
+    },
+    addToLayout({ commit, state }, layout) {
+      commit("updateLayout", [...state.layout, ...layout]);
+    },
+    addToLayouts({ commit, state }, layout) {
+      commit("updateLayouts", [...state.layouts, ...layout]);
+    },
     saveLayout({ commit }, layout) {
       commit(
         "saveLayout",
         layout.filter(item => item.i !== "drop")
       );
-    },
-    addToLayout({ commit, state }, layout) {
-      commit("updateLayout", [...state.layout, ...layout]);
     },
     setItemStatic({ commit, state }, index) {
       commit("setItem", {
@@ -63,6 +83,11 @@ export default new Vuex.Store({
   mutations: {
     updateLayout(state, layout) {
       state.layout = layout;
+    },
+    updateLayouts(state, layouts) {
+      state.layouts = layouts;
+
+      localStorage.setItem("layouts", JSON.stringify(layouts));
     },
     saveLayout(state, layout) {
       localStorage.setItem("layout", JSON.stringify(layout));
