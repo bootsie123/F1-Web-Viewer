@@ -98,7 +98,14 @@
       layoutUpdated(layout) {
         this.saveLayout(layout);
       },
-      syncFeeds(time) {
+      syncFeeds(time, broadCast = true) {
+        if (this.bc && broadCast) {
+          this.bc.postMessage({
+            type: "sync",
+            time
+          });
+        }
+
         this.setLayout(
           this.layout.map(feed => {
             feed.time = time;
@@ -112,6 +119,19 @@
     },
     mounted() {
       this.$root.$refs.gridLayout = this.$refs.gridLayout;
+
+      this.bc = new BroadcastChannel("F1-Web-Viewer");
+
+      this.bc.onmessage = e => {
+        if (e.data?.type === "sync") {
+          this.syncFeeds(e.data.time, false);
+        }
+      };
+    },
+    beforeDestroy() {
+      if (this.bc) {
+        this.bc.close();
+      }
     }
   };
 </script>
