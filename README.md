@@ -109,7 +109,7 @@ The layout is automatically saved locally to your browser. It will also be loade
 
 #### Is it possible to sync the feeds?
 
-Yes! Just click on the clock icon on the feed you want all the other feeds to sync up to
+Yes! Just click on the clock icon on the feed you want all the other feeds to sync up to. It will also sync across multiple tabs too
 
 ## Acknowledgements
 
