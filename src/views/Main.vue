@@ -7,6 +7,8 @@
       isDraggable
       isResizable
       :margin="[0, 0]"
+      :colNum="layoutColumns || 12"
+      :rowHeight="layoutRowHeight || 150"
       @layout-updated="layoutUpdated"
     >
       <grid-item
@@ -80,12 +82,12 @@
       return {
         tabs: [
           { title: "Manage Feeds", component: "FeedManager", icon: "ri-movie-line" },
-          { title: "Layout Settings", component: "LayoutManager", icon: "ri-layout-masonry-line" }
+          { title: "Settings", component: "Settings", icon: "ri-settings-4-line" }
         ]
       };
     },
     computed: {
-      ...mapGetters(["authenticated", "layout"])
+      ...mapGetters(["authenticated", "layout", "layoutColumns", "layoutRowHeight"])
     },
     methods: {
       deleteItem(i) {

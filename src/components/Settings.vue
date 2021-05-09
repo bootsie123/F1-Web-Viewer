@@ -1,5 +1,14 @@
 <template>
   <div class="container settings">
+    <h2 class="subtitle has-text-centered">Settings</h2>
+    <BaseNumberInput label="Layout Columns" placeholder="12" type="number" :min="1" v-model.number="layoutColumns" />
+    <BaseNumberInput
+      label="Layout Row Height (pixels)"
+      placeholder="150"
+      type="number"
+      :min="1"
+      v-model.number="layoutRowHeight"
+    />
     <h2 class="subtitle has-text-centered">Layouts</h2>
     <LayoutItem
       v-for="(layout, i) in layouts"
@@ -29,12 +38,14 @@
   import LayoutItem from "@/components/LayoutItem";
 
   import BaseIconButton from "@/components/BaseIconButton";
+  import BaseNumberInput from "@/components/BaseNumberInput";
 
   export default {
-    name: "LayoutManager",
+    name: "Settings",
     components: {
       LayoutItem,
-      BaseIconButton
+      BaseIconButton,
+      BaseNumberInput
     },
     data() {
       return {
@@ -42,6 +53,22 @@
       };
     },
     computed: {
+      layoutColumns: {
+        get() {
+          return this.$store.getters.layoutColumns;
+        },
+        set(val) {
+          this.setLayoutColumns(val);
+        }
+      },
+      layoutRowHeight: {
+        get() {
+          return this.$store.getters.layoutRowHeight;
+        },
+        set(val) {
+          this.setLayoutRowHeight(val);
+        }
+      },
       ...mapGetters(["layout", "layouts"])
     },
     methods: {
@@ -52,6 +79,8 @@
           {
             id,
             name: this.newLayoutName,
+            columns: this.layoutColumns,
+            rowHeight: this.layoutRowHeight,
             layout: this.layout
           }
         ]);
@@ -66,7 +95,7 @@
         this.updateLayouts(this.layouts);
       },
       ...mapActions(["addToLayouts", "setActiveLayout"]),
-      ...mapMutations(["updateLayouts"])
+      ...mapMutations(["updateLayouts", "setLayoutColumns", "setLayoutRowHeight"])
     }
   };
 </script>
@@ -75,6 +104,10 @@
   .settings {
     padding: 1em;
     padding-bottom: 2.5em;
+  }
+
+  .subtitle:nth-of-type(2) {
+    margin-top: 1.5rem;
   }
 
   .input,

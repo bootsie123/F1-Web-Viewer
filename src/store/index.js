@@ -10,6 +10,8 @@ export default new Vuex.Store({
     layouts: JSON.parse(localStorage.getItem("layouts")) || [],
     layout: JSON.parse(localStorage.getItem("layout")) || [],
     token: localStorage.getItem("token") || "",
+    layoutColumns: parseInt(localStorage.getItem("layoutColumns")) || 12,
+    layoutRowHeight: parseInt(localStorage.getItem("layoutRowHeight")) || 150,
     username: "",
     password: "",
     authError: ""
@@ -17,6 +19,8 @@ export default new Vuex.Store({
   getters: {
     layouts: state => state.layouts,
     layout: state => state.layout,
+    layoutColumns: state => state.layoutColumns,
+    layoutRowHeight: state => state.layoutRowHeight,
     token: state => state.token,
     authError: state => state.authError,
     authenticated: state => !!state.token
@@ -27,16 +31,20 @@ export default new Vuex.Store({
       dispatch("saveLayout", layout);
     },
     setActiveLayout({ commit, dispatch, state }, id) {
-      const layouts = [...state.layouts];
+      const layouts = [];
 
-      for (let layout of layouts) {
+      for (let layout of state.layouts) {
         if (layout.id === id) {
           layout.active = true;
 
           dispatch("setLayout", layout.layout);
+          commit("setLayoutColumns", layout.columns);
+          commit("setLayoutRowHeight", layout.rowHeight);
         } else {
           layout.active = false;
         }
+
+        layouts.push(layout);
       }
 
       commit("updateLayouts", layouts);
@@ -96,6 +104,16 @@ export default new Vuex.Store({
       state.layout[index][key] = value;
 
       localStorage.setItem("layout", JSON.stringify(state.layout));
+    },
+    setLayoutColumns(state, columns) {
+      state.layoutColumns = columns;
+
+      localStorage.setItem("layoutColumns", columns);
+    },
+    setLayoutRowHeight(state, rowHeight) {
+      state.layoutRowHeight = rowHeight;
+
+      localStorage.setItem("layoutRowHeight", rowHeight);
     },
     updateToken(state, token) {
       localStorage.setItem("token", token);
