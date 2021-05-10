@@ -1,5 +1,5 @@
 <template>
-  <div class="background" id="layoutParent" @dragover.prevent>
+  <div class="background" id="layoutParent" @dragover="preventDefault" @dragenter="preventDefault">
     <grid-layout
       class="gridLayout"
       ref="gridLayout"
@@ -113,6 +113,9 @@
             return feed;
           })
         );
+      },
+      preventDefault(e) {
+        e.preventDefault();
       },
       ...mapActions(["setLayout", "setItemStatic", "saveLayout"]),
       ...mapMutations(["logout"])

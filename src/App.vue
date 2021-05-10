@@ -5,8 +5,15 @@
 </template>
 
 <script>
+  import { polyfill } from "mobile-drag-drop/index.js";
+
   export default {
-    name: "App"
+    name: "App",
+    created() {
+      polyfill();
+
+      window.addEventListener("touchmove", function () {});
+    }
   };
 </script>
 
