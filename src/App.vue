@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import { polyfill } from "mobile-drag-drop/index.js";
+  import { polyfill } from "mobile-drag-drop";
 
   export default {
     name: "App",
