@@ -5,7 +5,7 @@ process.env.VUE_APP_HOMEPAGE = info.homepage;
 
 module.exports = {
   devServer: {
-    proxy: "http://localhost:3000"
+    proxy: "http://localhost:" + (process.env.PORT || 3000)
   },
   pages: {
     index: {
