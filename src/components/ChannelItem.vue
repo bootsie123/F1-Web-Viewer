@@ -130,10 +130,6 @@
     border-left: 3px solid;
   }
 
-  * {
-    -webkit-user-drag: none;
-  }
-
   .channel:hover {
     background: #f8f8f8;
     cursor: grab;
