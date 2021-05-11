@@ -23,6 +23,7 @@ A simple grid-based web viewer for Formula 1. Simply login with your F1TV creden
 - Picture in picture support
 - Easy to use and modern web interface
 - Docker support
+- VR support (using a web browser in VR)
 
 #### Coming Soon
 
