@@ -4,6 +4,14 @@
       <BaseIconButton icon="ri-drag-move-line" />
     </div>
     <div class="right-handle modifier">
+      <BaseIconButton
+        icon="ri-play-line"
+        iconHover="ri-play-fill"
+        iconToggle="ri-pause-line"
+        :value="playback"
+        toggle
+        @click="(e, toggled) => $emit('togglePlayback', toggled)"
+      />
       <BaseIconButton icon="ri-timer-line" iconHover="ri-timer-fill" @click="$emit('syncFeeds', playerTime)" />
       <BaseIconButton
         icon="ri-pushpin-line"
@@ -55,7 +63,7 @@
       playerTime() {
         return this.player?.currentTime();
       },
-      ...mapGetters(["token"])
+      ...mapGetters(["token", "playback"])
     },
     watch: {
       options() {
@@ -71,6 +79,15 @@
       },
       token() {
         this.updateSource();
+      },
+      playback(state) {
+        if (!this.player) return;
+
+        if (state) {
+          this.player.play();
+        } else {
+          this.player.pause();
+        }
       }
     },
     methods: {

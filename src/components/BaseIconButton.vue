@@ -17,12 +17,13 @@
       iconToggleHover: String,
       toggle: Boolean,
       initValue: Boolean,
+      value: Boolean,
       round: Boolean
     },
     data() {
       return {
         hover: false,
-        toggled: this.initValue
+        toggled: this.initValue || this.value
       };
     },
     computed: {
@@ -34,13 +35,18 @@
         }
       }
     },
+    watch: {
+      value(val) {
+        this.toggled = val;
+      }
+    },
     methods: {
       clicked(event) {
         if (this.toggle) {
           this.toggled = !this.toggled;
         }
 
-        this.$emit("click", event.target);
+        this.$emit("click", event.target, this.toggled);
       }
     }
   };

@@ -26,6 +26,7 @@
           @togglePin="setItemStatic(i)"
           @syncFeeds="syncFeeds"
           @delete="deleteItem(i)"
+          @togglePlayback="togglePlayback"
           :playbackUrl="item.playbackUrl"
           :options="item.options"
           :static="item.static"
@@ -114,11 +115,21 @@
           })
         );
       },
+      togglePlayback(toggled, broadCast = true) {
+        if (this.bc && broadCast) {
+          this.bc.postMessage({
+            type: "playback",
+            playback: toggled
+          });
+        }
+
+        this.setPlayback(toggled);
+      },
       preventDefault(e) {
         e.preventDefault();
       },
       ...mapActions(["setLayout", "setItemStatic", "saveLayout"]),
-      ...mapMutations(["logout"])
+      ...mapMutations(["logout", "setPlayback"])
     },
     mounted() {
       this.$root.$refs.gridLayout = this.$refs.gridLayout;
@@ -128,6 +139,8 @@
       this.bc.onmessage = e => {
         if (e.data?.type === "sync") {
           this.syncFeeds(e.data.time, false);
+        } else if (e.data?.type === "playback") {
+          this.togglePlayback(e.data.playback, false);
         }
       };
     },

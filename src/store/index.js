@@ -12,6 +12,7 @@ export default new Vuex.Store({
     token: localStorage.getItem("token") || "",
     layoutColumns: parseInt(localStorage.getItem("layoutColumns")) || 12,
     layoutRowHeight: parseInt(localStorage.getItem("layoutRowHeight")) || 150,
+    playback: true,
     username: "",
     password: "",
     authError: ""
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     layout: state => state.layout,
     layoutColumns: state => state.layoutColumns,
     layoutRowHeight: state => state.layoutRowHeight,
+    playback: state => state.playback,
     token: state => state.token,
     authError: state => state.authError,
     authenticated: state => !!state.token
@@ -114,6 +116,9 @@ export default new Vuex.Store({
       state.layoutRowHeight = rowHeight;
 
       localStorage.setItem("layoutRowHeight", rowHeight);
+    },
+    setPlayback(state, playback) {
+      state.playback = playback;
     },
     updateToken(state, token) {
       localStorage.setItem("token", token);
