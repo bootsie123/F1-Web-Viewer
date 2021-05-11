@@ -1,5 +1,5 @@
 <template>
-  <div class="container settings">
+  <div class="container">
     <h2 class="subtitle has-text-centered">Settings</h2>
     <BaseNumberInput label="Layout Columns" placeholder="12" type="number" :min="1" v-model.number="layoutColumns" />
     <BaseNumberInput
@@ -17,6 +17,7 @@
       :active="layout.active"
       @selected="setActiveLayout(layout.id)"
       @delete="deleteLayout(i)"
+      @save="saveLayout(layout)"
     />
     <div class="field has-addons">
       <div class="control is-expanded">
@@ -89,6 +90,11 @@
 
         this.newLayoutName = "";
       },
+      saveLayout(layout) {
+        layout.layout = this.layout;
+
+        this.updateLayouts(this.layouts);
+      },
       deleteLayout(i) {
         this.layouts.splice(i, 1);
 
@@ -101,7 +107,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .settings {
+  .container {
     padding: 1em;
     padding-bottom: 2.5em;
   }

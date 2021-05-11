@@ -18,6 +18,7 @@
     </div>
     <div class="level-right">
       <div v-if="hover" class="level-item">
+        <BaseIconButton icon="ri-save-line" iconHover="ri-save-fill" @click="$emit('save')" />
         <BaseIconButton icon="ri-delete-bin-line" iconHover="ri-delete-bin-fill" @click="$emit('delete')" />
       </div>
     </div>
