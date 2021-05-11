@@ -1,5 +1,5 @@
 <template>
-  <div class="level">
+  <div class="level is-mobile">
     <div class="level-left">
       <div class="level-item">
         <BaseIconButton class="gitHub" @click="openGitHub" icon="ri-github-fill" />

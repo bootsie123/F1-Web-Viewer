@@ -22,7 +22,9 @@
         :disabled="sessions.length < 2"
         :loading="sessionsLoading"
       />
-      <button class="button is-fullwidth" @click="updateSources" :disabled="channels.length < 1">Update Feeds</button>
+      <button class="button is-fullwidth" @click="updateSources" :disabled="channels.length < 1">
+        Update Existing Feeds
+      </button>
     </div>
     <ChannelGrid :channels="channels" />
   </div>
@@ -76,6 +78,7 @@
 
         this.events = [];
         this.sessions = [];
+        this.channels = [];
 
         try {
           let events = await F1TV_API.getEventsFromSeason(year);
@@ -104,7 +107,9 @@
         if (!eventId) return;
 
         this.sessionsLoading = true;
+
         this.sessions = [];
+        this.channels = [];
 
         try {
           let sessions = await F1TV_API.getSessionFromEvent(eventId);
