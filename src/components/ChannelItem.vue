@@ -99,7 +99,8 @@
               width: 50,
               height: 50
             },
-            playbackUrl: this.channel.playbackUrl
+            playbackUrl: this.channel.playbackUrl,
+            title: this.channel.title
           });
 
           this.setLayout(newLayout);

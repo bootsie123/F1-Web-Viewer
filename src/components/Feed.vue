@@ -66,7 +66,10 @@
       time(time) {
         this.player?.currentTime(time);
       },
-      async token() {
+      playbackUrl() {
+        this.updateSource();
+      },
+      token() {
         this.updateSource();
       }
     },

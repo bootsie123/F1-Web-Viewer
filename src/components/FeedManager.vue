@@ -22,6 +22,7 @@
         :disabled="sessions.length < 2"
         :loading="sessionsLoading"
       />
+      <button class="button is-fullwidth" @click="updateSources" :disabled="channels.length < 1">Update Feeds</button>
     </div>
     <ChannelGrid :channels="channels" />
   </div>
@@ -137,6 +138,8 @@
       async session(contentId) {
         if (!contentId) return;
 
+        this.channels = [];
+
         try {
           const channels = await F1TV_API.getChannelsFromSession(contentId);
 
@@ -174,6 +177,21 @@
           console.error(err);
         }
       }
+    },
+    methods: {
+      updateSources() {
+        const layout = this.$store.getters.layout.map(item => {
+          const channel = this.channels.find(channel => channel.title === item.title);
+
+          if (channel) {
+            item.playbackUrl = channel.playbackUrl;
+          }
+
+          return item;
+        });
+
+        this.$store.dispatch("setLayout", layout);
+      }
     }
   };
 </script>
@@ -181,5 +199,9 @@
 <style lang="scss">
   .settings {
     padding: 1em;
+  }
+
+  .settings .button {
+    margin-top: 2em;
   }
 </style>
