@@ -27,7 +27,9 @@ A simple grid-based web viewer for Formula 1. Simply login with your F1TV creden
 
 #### Coming Soon
 
-- Nothing yet... Have any suggestions? Let us know!
+- Syncing across devices on the same local network
+
+Have any suggestions? Let us know!
 
 ## Installation
 
