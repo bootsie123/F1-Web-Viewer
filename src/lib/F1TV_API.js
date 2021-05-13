@@ -28,6 +28,7 @@ export default {
       params: {
         filter_season: year,
         filter_objectSubtype: "Meeting",
+        filter_orderByFom: "Y",
         sortOrder: "asc",
         orderBy: "meeting_End_Date"
       }
