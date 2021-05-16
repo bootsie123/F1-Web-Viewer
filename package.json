@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node functions/server.js",
     "dev": "nodemon functions/server.js",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --modern",
     "serve": "vue-cli-service serve",
     "lint": "vue-cli-service lint"
   },
