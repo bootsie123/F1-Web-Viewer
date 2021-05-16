@@ -19,5 +19,6 @@ module.exports = {
         prependData: "@import '@/assets/main.scss';"
       }
     }
-  }
+  },
+  transpileDependencies: ["vue-grid-layout"]
 };

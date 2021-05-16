@@ -75,13 +75,8 @@
     "arrowParens": "avoid",
     "vueIndentScriptAndStyle": true
   },
-  "babel": {
-    "presets": [
-      "@vue/cli-plugin-babel/preset"
-    ]
-  },
   "browserslist": [
-    "> 1%",
+    "defaults",
     "last 2 versions",
     "not dead"
   ]
