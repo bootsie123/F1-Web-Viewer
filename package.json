@@ -29,7 +29,7 @@
     "uuid": "^8.3.2",
     "video.js": "^7.12.1",
     "videojs-contrib-quality-levels": "^2.1.0",
-    "videojs-http-source-selector": "^1.1.6",
+    "videojs-http-source-selector-2": "^1.1.9",
     "vue": "^2.6.11",
     "vue-grid-layout": "^2.3.12",
     "vue-router": "^3.3.4",

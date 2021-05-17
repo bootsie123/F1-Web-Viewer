@@ -33,7 +33,7 @@
   import { mapGetters } from "vuex";
 
   import "videojs-contrib-quality-levels";
-  import "videojs-http-source-selector";
+  import "videojs-http-source-selector-2";
 
   import F1TV_API from "@/lib/F1TV_API";
 
