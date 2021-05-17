@@ -172,6 +172,10 @@
     z-index: 1;
   }
 
+  .vue-grid-item {
+    touch-action: none;
+  }
+
   .relative {
     position: relative;
     min-height: 100%;
