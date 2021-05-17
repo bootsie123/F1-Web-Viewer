@@ -134,15 +134,17 @@
     mounted() {
       this.$root.$refs.gridLayout = this.$refs.gridLayout;
 
-      this.bc = new BroadcastChannel("F1-Web-Viewer");
+      if (BroadcastChannel) {
+        this.bc = new BroadcastChannel("F1-Web-Viewer");
 
-      this.bc.onmessage = e => {
-        if (e.data?.type === "sync") {
-          this.syncFeeds(e.data.time, false);
-        } else if (e.data?.type === "playback") {
-          this.togglePlayback(e.data.playback, false);
-        }
-      };
+        this.bc.onmessage = e => {
+          if (e.data?.type === "sync") {
+            this.syncFeeds(e.data.time, false);
+          } else if (e.data?.type === "playback") {
+            this.togglePlayback(e.data.playback, false);
+          }
+        };
+      }
     },
     beforeDestroy() {
       if (this.bc) {
