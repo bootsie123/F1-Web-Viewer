@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import F1TV_API from "@/lib/F1TV_API";
+import deepClone from "@/lib/deepClone";
 
 Vue.use(Vuex);
 
@@ -39,7 +40,7 @@ export default new Vuex.Store({
         if (layout.id === id) {
           layout.active = true;
 
-          dispatch("setLayout", layout.layout);
+          dispatch("setLayout", deepClone(layout.layout));
           commit("setLayoutColumns", layout.columns);
           commit("setLayoutRowHeight", layout.rowHeight);
         } else {

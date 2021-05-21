@@ -93,6 +93,9 @@
       saveLayout(layout) {
         layout.layout = this.layout;
 
+        layout.columns = this.layoutColumns;
+        layout.rowHeight = this.layoutRowHeight;
+
         this.updateLayouts(this.layouts);
       },
       deleteLayout(i) {
