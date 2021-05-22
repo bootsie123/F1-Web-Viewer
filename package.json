@@ -2,7 +2,7 @@
   "name": "f1-web-viewer",
   "description": "A simple grid-based web viewer for Formula 1",
   "author": "bootsie123",
-  "version": "1.5.5",
+  "version": "1.6.0",
   "private": true,
   "homepage": "https://github.com/bootsie123/F1-Web-Viewer",
   "scripts": {
