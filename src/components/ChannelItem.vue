@@ -95,6 +95,8 @@
             i: this.dragPos.i,
             options: {
               controls: true,
+              muted: true,
+              liveui: true,
               preload: "auto",
               width: 50,
               height: 50
