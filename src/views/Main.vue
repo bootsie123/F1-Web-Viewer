@@ -134,7 +134,7 @@
     mounted() {
       this.$root.$refs.gridLayout = this.$refs.gridLayout;
 
-      if (BroadcastChannel) {
+      if (window.BroadcastChannel) {
         this.bc = new BroadcastChannel("F1-Web-Viewer");
 
         this.bc.onmessage = e => {
