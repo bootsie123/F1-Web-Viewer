@@ -68,7 +68,7 @@
       seasons() {
         return [{ text: "Select season", ...this.defaultValues }, ...F1TV_API.getSeasons()];
       },
-      ...mapGetters(["authenticated"])
+      ...mapGetters(["authenticated", "layout"])
     },
     watch: {
       async season(year) {
@@ -185,7 +185,7 @@
     },
     methods: {
       updateSources() {
-        const layout = this.$store.getters.layout.map(item => {
+        const layout = this.layout.map(item => {
           const channel = this.channels.find(channel => channel.title === item.title);
 
           if (channel) {
