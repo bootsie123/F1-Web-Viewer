@@ -1,4 +1,5 @@
 import axios from "axios";
+import store from "@/store";
 
 const CORS_PROXY = "https://damp-mouse-7bce.f1webviewer.workers.dev?";
 const API_URL = "https://f1tv.formula1.com";
@@ -27,6 +28,27 @@ http.interceptors.response.use(
     }
 
     return Promise.reject(err);
+  }
+);
+
+http.interceptors.response.use(
+  res => {
+    return res;
+  },
+  err => {
+    const originalRequest = err.config;
+
+    if (err.status === 401) {
+      if (!originalRequest._retry) {
+        originalRequest._retry = true;
+
+        return http(originalRequest);
+      } else {
+        store.commit("logout");
+      }
+    }
+
+    return Promise.reject(err.data);
   }
 );
 
