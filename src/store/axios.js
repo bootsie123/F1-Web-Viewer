@@ -5,7 +5,7 @@ const CORS_PROXY = "https://damp-mouse-7bce.f1webviewer.workers.dev?";
 const API_URL = "https://f1tv.formula1.com";
 
 const http = axios.create({
-  baseURL: CORS_PROXY + API_URL
+  baseURL: process.env.VUE_APP_NETLIFY ? CORS_PROXY + API_URL : "/proxy?url=" + API_URL
 });
 
 const production = process.env.VUE_APP_NODE_ENV === "production";

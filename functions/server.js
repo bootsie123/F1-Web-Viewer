@@ -60,6 +60,33 @@ app.post(
 );
 
 if (!process.env.AWS_EXECUTION_ENV) {
+  app.all("/proxy", async (req, res) => {
+    const url = req.query.url;
+    const query = req.query;
+
+    delete query.url;
+
+    try {
+      const data = await fetch(
+        url + (url.includes("?") && Object.keys(query).length > 0 ? "&" : "") + new URLSearchParams(query),
+        {
+          method: req.method,
+          headers: {
+            ascendontoken: req.headers.ascendontoken
+          }
+        }
+      );
+
+      const json = await data.json();
+
+      res.status(json.Status || 200).json(json);
+    } catch (err) {
+      console.error(err);
+
+      res.status(500).json(err);
+    }
+  });
+
   app.listen(PORT, () => console.info(`Server running on port ${PORT}`));
 }
 
