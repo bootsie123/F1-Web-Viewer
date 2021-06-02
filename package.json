@@ -20,6 +20,7 @@
     "connect-history-api-fallback": "^1.6.0",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
+    "cors-anywhere": "^0.4.4",
     "express": "^4.17.1",
     "helmet": "^4.4.1",
     "mobile-drag-drop": "^2.3.0-rc.2",

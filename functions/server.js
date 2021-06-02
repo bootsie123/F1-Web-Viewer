@@ -60,31 +60,16 @@ app.post(
 );
 
 if (!process.env.AWS_EXECUTION_ENV) {
-  app.all("/proxy", async (req, res) => {
-    const url = req.query.url;
-    const query = req.query;
+  const cors_proxy = require("cors-anywhere").createServer({
+    originWhitelist: [],
+    requireHeaders: [],
+    removeHeaders: []
+  });
 
-    delete query.url;
+  app.all("/proxy/:url*", (req, res) => {
+    req.url = req.url.replace("/proxy/", "/");
 
-    try {
-      const data = await fetch(
-        url + (url.includes("?") && Object.keys(query).length > 0 ? "&" : "") + new URLSearchParams(query),
-        {
-          method: req.method,
-          headers: {
-            ascendontoken: req.headers.ascendontoken
-          }
-        }
-      );
-
-      const json = await data.json();
-
-      res.status(json.Status || 200).json(json);
-    } catch (err) {
-      console.error(err);
-
-      res.status(500).json(err);
-    }
+    cors_proxy.emit("request", req, res);
   });
 
   app.listen(PORT, () => console.info(`Server running on port ${PORT}`));
