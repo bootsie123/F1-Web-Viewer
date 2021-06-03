@@ -42,6 +42,8 @@ function createWindow() {
     createProtocol("app");
 
     win.loadURL("http://localhost:3000");
+
+    autoUpdater.checkForUpdatesAndNotify();
   }
 
   win.on("closed", () => {
@@ -77,8 +79,6 @@ app.on("ready", async () => {
     } catch (e) {
       console.error("Vue Devtools failed to install:", e.toString());
     }
-  } else {
-    autoUpdater.checkForUpdatesAndNotify();
   }
 
   createWindow();

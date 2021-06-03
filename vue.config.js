@@ -27,6 +27,7 @@ module.exports = {
       builderOptions: {
         appId: "app.netlify.f1webviewer",
         productName: "F1 Web Viewer",
+        publish: ["github"],
         win: {
           icon: "./build/icons/icon.ico",
           target: ["nsis"]
