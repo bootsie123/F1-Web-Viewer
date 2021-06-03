@@ -4,7 +4,7 @@ const compression = require("compression");
 const helmet = require("helmet");
 const cors = require("cors");
 const history = require("connect-history-api-fallback");
-const fetch = require("node-fetch");
+const fetch = process.env.IS_ELECTRON ? require("node-fetch").default : require("node-fetch");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -26,7 +26,7 @@ app.use(cors({ origin: true }));
 app.use(history());
 
 app.use(
-  express.static("dist", {
+  express.static("dist/web", {
     maxAge: process.env.CACHE_MAX_AGE || "1d"
   })
 );

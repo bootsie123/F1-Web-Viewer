@@ -48,6 +48,7 @@
       options: Object,
       playbackUrl: String,
       static: Boolean,
+      live: Boolean,
       time: {
         type: Number,
         default: 0
@@ -119,7 +120,17 @@
           const res = await F1TV_API.getAuthenticatedUrl(this.playbackUrl, this.token);
 
           if (this.player && res.data?.resultObj?.url) {
-            this.player.src(res.data.resultObj.url);
+            let url = res.data.resultObj.url;
+
+            if (this.live) {
+              if (process.env.VUE_APP_NETLIFY) {
+                url = "https://cors.bridged.cc/" + url;
+              } else if (!process.env.IS_ELECTRON) {
+                url = "/proxy/" + url;
+              }
+            }
+
+            this.player.src(url);
           }
         } catch (err) {
           console.error(err);

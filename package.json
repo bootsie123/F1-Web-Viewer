@@ -8,11 +8,16 @@
   "scripts": {
     "start": "node functions/server.js",
     "dev": "nodemon functions/server.js",
-    "build": "vue-cli-service build --modern",
-    "serve": "vue-cli-service serve",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build": "npm run vue:build",
+    "build-all": "npm run vue:build && npm run electron:build",
+    "vue:build": "vue-cli-service build --modern",
+    "vue:serve": "vue-cli-service serve",
+    "electron:build": "npm run electron:generate-icons && vue-cli-service electron:build",
+    "electron:serve": "vue-cli-service electron:serve",
+    "electron:generate-icons": "electron-icon-builder --input=./public/icon.png --output=build --flatten"
   },
-  "main": "./src/main.js",
+  "main": "background.js",
   "dependencies": {
     "axios": "^0.21.1",
     "bulma": "^0.9.2",
@@ -21,6 +26,7 @@
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
     "cors-anywhere": "^0.4.4",
+    "electron-updater": "^4.3.9",
     "express": "^4.17.1",
     "helmet": "^4.4.1",
     "mobile-drag-drop": "^2.3.0-rc.2",
@@ -42,6 +48,9 @@
     "@vue/cli-plugin-router": "^4.4.6",
     "@vue/cli-service": "^4.5.13",
     "babel-eslint": "^10.1.0",
+    "electron": "^13.1.0",
+    "electron-devtools-installer": "^3.2.0",
+    "electron-icon-builder": "^2.0.1",
     "eslint": "^6.7.2",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-vue": "^6.2.2",
@@ -49,6 +58,7 @@
     "nodemon": "^2.0.7",
     "prettier": "2.1.2",
     "sass-loader": "^8.0.2",
+    "vue-cli-plugin-electron-builder": "^2.0.0",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {

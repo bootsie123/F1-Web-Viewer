@@ -102,7 +102,8 @@
               height: 50
             },
             playbackUrl: this.channel.playbackUrl,
-            title: this.channel.title
+            title: this.channel.title,
+            live: this.channel.live
           });
 
           this.setLayout(newLayout);
