@@ -5,8 +5,6 @@ import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 import { autoUpdater } from "electron-updater";
 
-require("../functions/server");
-
 const isDevelopment = process.env.NODE_ENV !== "production";
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -27,6 +25,7 @@ function createWindow() {
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
       nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
+      contextIsolation: false,
       webSecurity: false
     }
   });
@@ -34,14 +33,17 @@ function createWindow() {
   win.maximize();
   win.show();
 
+  win.webContents.userAgent = "RaceControl f1viewer";
+
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
     win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
+
     if (!process.env.IS_TEST) win.webContents.openDevTools();
   } else {
     createProtocol("app");
 
-    win.loadURL("http://localhost:3000");
+    win.loadURL("app://./index.html");
 
     autoUpdater.checkForUpdatesAndNotify();
   }

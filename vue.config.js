@@ -24,21 +24,19 @@ module.exports = {
   pluginOptions: {
     electronBuilder: {
       outputDir: "./dist/electron",
+      nodeIntegration: true,
       builderOptions: {
         appId: "app.netlify.f1webviewer",
         productName: "F1 Web Viewer",
         publish: ["github"],
         win: {
-          icon: "./build/icons/icon.ico",
           target: ["nsis"]
         },
         mac: {
-          icon: "./build/icons/icon.icns",
           category: "public.app-category.sports",
           target: ["dmg"]
         },
         linux: {
-          icon: "./build/icons",
           category: "AudioVideo",
           target: ["AppImage"]
         },

@@ -4,7 +4,7 @@ const compression = require("compression");
 const helmet = require("helmet");
 const cors = require("cors");
 const history = require("connect-history-api-fallback");
-const fetch = process.env.IS_ELECTRON ? require("node-fetch").default : require("node-fetch");
+const fetch = require("node-fetch");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
