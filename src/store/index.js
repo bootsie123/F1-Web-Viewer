@@ -17,8 +17,6 @@ let savedState = {
   layoutRowHeight: parseInt(localStorage.getItem("layoutRowHeight"))
 };
 
-console.log(savedState);
-
 if (isElectron) {
   const Store = import("electron-store");
 
@@ -31,8 +29,6 @@ if (isElectron) {
     layoutColumns: store.get("layoutColumns"),
     layoutRowHeight: store.get("layoutRowHeight")
   };
-
-  console.log(savedState);
 }
 
 export default new Vuex.Store({
