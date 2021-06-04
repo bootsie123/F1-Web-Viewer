@@ -151,7 +151,7 @@
           const container = channels.data.resultObj.containers[0];
 
           if (container.metadata.additionalStreams) {
-            const isLive = container.metadata.contentType === "LIVE";
+            const isLive = container.metadata.contentSubtype === "LIVE";
 
             const mappedChannels = channels.data.resultObj.containers[0].metadata.additionalStreams.map(channel => {
               return {
