@@ -6,13 +6,38 @@ import deepClone from "@/lib/deepClone";
 
 Vue.use(Vuex);
 
+const isElectron = process.env.isElectron;
+
+let store;
+let savedState = {
+  layouts: JSON.parse(localStorage.getItem("layouts")),
+  layout: JSON.parse(localStorage.getItem("layout")),
+  token: localStorage.getItem("token"),
+  layoutColumns: parseInt(localStorage.getItem("layoutColumns")),
+  layoutRowHeight: parseInt(localStorage.getItem("layoutRowHeight"))
+};
+
+if (isElectron) {
+  const Store = import("electron-store");
+
+  store = new Store();
+
+  savedState = {
+    layouts: store.get("layouts"),
+    layout: store.get("layout"),
+    token: store.get("token"),
+    layoutColumns: store.get("layoutColumns"),
+    layoutRowHeight: store.get("layoutRowHeight")
+  };
+}
+
 export default new Vuex.Store({
   state: {
-    layouts: JSON.parse(localStorage.getItem("layouts")) || [],
-    layout: JSON.parse(localStorage.getItem("layout")) || [],
-    token: localStorage.getItem("token") || "",
-    layoutColumns: parseInt(localStorage.getItem("layoutColumns")) || 12,
-    layoutRowHeight: parseInt(localStorage.getItem("layoutRowHeight")) || 150,
+    layouts: savedState.layouts || [],
+    layout: savedState.layout || [],
+    token: savedState.token || "",
+    layoutColumns: savedState.layoutColumns || 12,
+    layoutRowHeight: savedState.layoutRowHeight || 150,
     playback: true,
     username: "",
     password: "",
@@ -99,30 +124,54 @@ export default new Vuex.Store({
       state.layouts = layouts;
 
       localStorage.setItem("layouts", JSON.stringify(layouts));
+
+      if (isElectron) {
+        store.set("layouts", layouts);
+      }
     },
     saveLayout(state, layout) {
       localStorage.setItem("layout", JSON.stringify(layout));
+
+      if (isElectron) {
+        store.set("layout", layout);
+      }
     },
     setItem(state, { index, key, value }) {
       state.layout[index][key] = value;
 
       localStorage.setItem("layout", JSON.stringify(state.layout));
+
+      if (isElectron) {
+        store.set("layout", state.layout);
+      }
     },
     setLayoutColumns(state, columns) {
       state.layoutColumns = columns;
 
       localStorage.setItem("layoutColumns", columns);
+
+      if (isElectron) {
+        store.set("layoutColumns", columns);
+      }
     },
     setLayoutRowHeight(state, rowHeight) {
       state.layoutRowHeight = rowHeight;
 
       localStorage.setItem("layoutRowHeight", rowHeight);
+
+      if (isElectron) {
+        store.set("layoutRowHeight", rowHeight);
+      }
     },
     setPlayback(state, playback) {
       state.playback = playback;
     },
     updateToken(state, token) {
       localStorage.setItem("token", token);
+
+      if (isElectron) {
+        store.set("token", token);
+      }
 
       state.token = token;
     },
@@ -131,6 +180,10 @@ export default new Vuex.Store({
     },
     logout(state) {
       localStorage.removeItem("token");
+
+      if (isElectron) {
+        store.delete("token");
+      }
 
       state.token = "";
       state.authError = "";

@@ -151,6 +151,8 @@
           const container = channels.data.resultObj.containers[0];
 
           if (container.metadata.additionalStreams) {
+            const isLive = container.metadata.contentType === "LIVE";
+
             const mappedChannels = channels.data.resultObj.containers[0].metadata.additionalStreams.map(channel => {
               return {
                 driverFirstName: channel.driverFirstName,
@@ -158,14 +160,16 @@
                 title: channel.title,
                 playbackUrl: channel.playbackUrl,
                 hex: channel.hex,
-                type: channel.type
+                type: channel.type,
+                live: isLive
               };
             });
 
             mappedChannels.push({
               title: "WORLD",
               type: "additional",
-              playbackUrl: `CONTENT/PLAY?contentId=${container.contentId}`
+              playbackUrl: `CONTENT/PLAY?contentId=${container.contentId}`,
+              live: isLive
             });
 
             this.channels = mappedChannels;

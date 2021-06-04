@@ -26,7 +26,7 @@ app.use(cors({ origin: true }));
 app.use(history());
 
 app.use(
-  express.static("dist", {
+  express.static("dist/web", {
     maxAge: process.env.CACHE_MAX_AGE || "1d"
   })
 );

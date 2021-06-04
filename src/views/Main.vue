@@ -31,6 +31,7 @@
           :options="item.options"
           :static="item.static"
           :time="item.time"
+          :live="item.live"
         />
       </grid-item>
     </grid-layout>
