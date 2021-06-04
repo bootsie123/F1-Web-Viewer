@@ -4,7 +4,7 @@
   environment = { VUE_APP_NETLIFY = "true" }
 
 [dev]
-  command = "npm run serve"
+  command = "npm run vue:serve"
   port = 3000
 
 [functions]
