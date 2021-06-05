@@ -1,5 +1,11 @@
 <template>
-  <div class="background" id="layoutParent" @dragover="preventDefault" @dragenter="preventDefault">
+  <div
+    class="background"
+    :class="{ forceBackground }"
+    id="layoutParent"
+    @dragover="preventDefault"
+    @dragenter="preventDefault"
+  >
     <grid-layout
       class="gridLayout"
       ref="gridLayout"
@@ -37,16 +43,25 @@
     </grid-layout>
     <SlidePanel>
       <div class="container relative">
-        <template v-if="authenticated">
-          <BaseTabs :tabs="tabs" keepAlive />
-          <BaseIconButton
-            v-if="authenticated"
-            class="logout"
-            @click="logout()"
-            icon="ri-logout-box-line"
-            iconHover="ri-logout-box-fill"
-          />
-        </template>
+        <div v-if="authenticated">
+          <BaseTabs :tabs="tabs" keepAlive>
+            <template v-slot:right>
+              <BaseIconButton
+                @click="toggleBackground"
+                icon="icon ri-contrast-2-line"
+                iconHover="ri-contrast-2-fill"
+                iconToggle="ri-contrast-2-fill"
+                toggle
+              />
+              <BaseIconButton
+                v-if="authenticated"
+                @click="logout()"
+                icon="ri-logout-box-line"
+                iconHover="ri-logout-box-fill"
+              />
+            </template>
+          </BaseTabs>
+        </div>
         <template v-else>
           <h1 class="title has-text-centered">F1 Web Viewer - Login</h1>
           <Login />
@@ -85,7 +100,8 @@
         tabs: [
           { title: "Manage Feeds", component: "FeedManager", icon: "ri-movie-line" },
           { title: "Settings", component: "Settings", icon: "ri-settings-4-line" }
-        ]
+        ],
+        forceBackground: false
       };
     },
     computed: {
@@ -126,6 +142,9 @@
 
         this.setPlayback(toggled);
       },
+      toggleBackground(e, toggled) {
+        this.forceBackground = toggled;
+      },
       preventDefault(e) {
         e.preventDefault();
       },
@@ -162,11 +181,8 @@
     background: #fdfdfd;
   }
 
-  .logout {
-    position: absolute;
-    top: 6px;
-    right: 0;
-    font-size: 1.5em;
+  .icon {
+    font-size: 1.25em;
   }
 
   .gridLayout {
@@ -186,5 +202,9 @@
     .background {
       background: black;
     }
+  }
+
+  .forceBackground {
+    background: black;
   }
 </style>
