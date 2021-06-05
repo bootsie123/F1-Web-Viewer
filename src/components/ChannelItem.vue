@@ -98,6 +98,7 @@
               muted: true,
               liveui: true,
               preload: "auto",
+              crossOrigin: "anonymous",
               width: 50,
               height: 50
             },
