@@ -2,7 +2,7 @@
   "name": "f1-web-viewer",
   "description": "A simple grid-based web viewer for Formula 1",
   "author": "bootsie123",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "private": true,
   "homepage": "https://github.com/bootsie123/F1-Web-Viewer",
   "scripts": {
@@ -16,7 +16,7 @@
     "electron:build": "npm run electron:generate-icons && vue-cli-service electron:build",
     "electron:serve": "vue-cli-service electron:serve",
     "electron:generate-icons": "electron-icon-builder --input=./public/icon.png --output=build --flatten",
-    "release": "vue-cli-service electron:build --publish always"
+    "release": "npm run electron:generate-icons && vue-cli-service electron:build --publish always"
   },
   "main": "background.js",
   "dependencies": {

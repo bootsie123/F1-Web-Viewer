@@ -1,6 +1,9 @@
 <template>
   <div>
     <div class="tabs">
+      <div class="insertContainer">
+        <slot name="left" />
+      </div>
       <ul>
         <li
           v-for="(tab, i) in tabs"
@@ -18,6 +21,9 @@
           </a>
         </li>
       </ul>
+      <div class="insertContainer">
+        <slot name="right" />
+      </div>
     </div>
     <keep-alive v-if="keepAlive">
       <compontent :is="currentComponent" />
@@ -51,4 +57,10 @@
   };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .insertContainer {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #dbdbdb;
+  }
+</style>
