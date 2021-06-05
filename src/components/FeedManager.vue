@@ -194,6 +194,7 @@
 
           if (channel) {
             item.playbackUrl = channel.playbackUrl;
+            item.live = channel.live;
           }
 
           return item;
