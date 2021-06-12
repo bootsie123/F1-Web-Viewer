@@ -122,12 +122,10 @@
           if (this.player && res.data?.resultObj?.url) {
             let url = res.data.resultObj.url;
 
-            if (this.live) {
-              if (process.env.VUE_APP_NETLIFY) {
-                url = "https://cors.bridged.cc/" + url;
-              } else if (!process.env.IS_ELECTRON) {
-                url = "/proxy/" + url;
-              }
+            if (process.env.VUE_APP_NETLIFY) {
+              url = "https://cors.bridged.cc/" + url;
+            } else if (!process.env.IS_ELECTRON) {
+              url = "/proxy/" + url;
             }
 
             this.player.src(url);
