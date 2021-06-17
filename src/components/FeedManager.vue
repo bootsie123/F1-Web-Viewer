@@ -2,6 +2,13 @@
   <div>
     <div class="container settings">
       <BaseDropdown
+        label="Series"
+        v-model="series"
+        :options="seriesList"
+        :disabled="seriesList.length < 2"
+        :loading="seriesLoading"
+      />
+      <BaseDropdown
         label="Season"
         v-model="season"
         :options="seasons"
@@ -46,6 +53,7 @@
     },
     data() {
       return {
+        series: "FORMULA 1",
         season: "",
         event: "",
         session: "",
@@ -65,21 +73,83 @@
       seasonsLoading() {
         return this.seasons.length < 2;
       },
+      seriesLoading() {
+        return this.seriesList.length < 2;
+      },
       seasons() {
         return [{ text: "Select season", ...this.defaultValues }, ...F1TV_API.getSeasons()];
+      },
+      seriesList() {
+        return [{ text: "Select series", ...this.defaultValues }, ...F1TV_API.getSeries()];
       },
       ...mapGetters(["authenticated", "layout"])
     },
     watch: {
+      async series(series) {
+        if (!series || !this.event) return;
+
+        this.sessionsLoading = true;
+
+        this.session = "";
+
+        await this.updateSessions(this.event);
+
+        this.sessionsLoading = false;
+      },
       async season(year) {
         if (!year) return;
 
         this.eventsLoading = true;
 
+        this.event = "";
+        this.session = "";
+
         this.events = [];
         this.sessions = [];
         this.channels = [];
 
+        await this.updateEvents(year);
+
+        this.eventsLoading = false;
+      },
+      async event(eventId) {
+        if (!eventId) return;
+
+        this.sessionsLoading = true;
+
+        this.session = "";
+
+        this.sessions = [];
+        this.channels = [];
+
+        await this.updateSessions(eventId);
+
+        this.sessionsLoading = false;
+      },
+      session(contentId) {
+        if (!contentId) return;
+
+        this.channels = [];
+
+        this.updateChannels(contentId);
+      }
+    },
+    methods: {
+      updateSources() {
+        const layout = this.layout.map(item => {
+          const channel = this.channels.find(channel => channel.title === item.title);
+
+          if (channel) {
+            item.playbackUrl = channel.playbackUrl;
+            item.live = channel.live;
+          }
+
+          return item;
+        });
+
+        this.$store.dispatch("setLayout", layout);
+      },
+      async updateEvents(year) {
         try {
           let events = await F1TV_API.getEventsFromSeason(year);
 
@@ -100,17 +170,8 @@
         } catch (err) {
           console.error(err);
         }
-
-        this.eventsLoading = false;
       },
-      async event(eventId) {
-        if (!eventId) return;
-
-        this.sessionsLoading = true;
-
-        this.sessions = [];
-        this.channels = [];
-
+      async updateSessions(eventId) {
         try {
           let sessions = await F1TV_API.getSessionFromEvent(eventId);
 
@@ -122,7 +183,7 @@
 
                 return (
                   metadata.contentType === "VIDEO" &&
-                  metadata.emfAttributes.Series === "FORMULA 1" &&
+                  metadata.emfAttributes.Series === this.series &&
                   (metadata.contentSubtype === "REPLAY" || metadata.contentSubtype === "LIVE")
                 );
               })
@@ -137,14 +198,8 @@
         } catch (err) {
           console.error(err);
         }
-
-        this.sessionsLoading = false;
       },
-      async session(contentId) {
-        if (!contentId) return;
-
-        this.channels = [];
-
+      async updateChannels(contentId) {
         try {
           const channels = await F1TV_API.getChannelsFromSession(contentId);
 
@@ -185,22 +240,6 @@
         } catch (err) {
           console.error(err);
         }
-      }
-    },
-    methods: {
-      updateSources() {
-        const layout = this.layout.map(item => {
-          const channel = this.channels.find(channel => channel.title === item.title);
-
-          if (channel) {
-            item.playbackUrl = channel.playbackUrl;
-            item.live = channel.live;
-          }
-
-          return item;
-        });
-
-        this.$store.dispatch("setLayout", layout);
       }
     }
   };
