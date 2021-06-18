@@ -39,6 +39,16 @@ export default {
 
     return seasons;
   },
+  getSeries: () => {
+    const seriesNames = ["Formula 1", "Formula 2", "Formula 3", "Porsche"];
+
+    return seriesNames.map(series => {
+      return {
+        text: series,
+        value: series.toUpperCase()
+      };
+    });
+  },
   getEventsFromSeason: year => {
     return api.get(VIDEO_QUERY, {
       params: {
