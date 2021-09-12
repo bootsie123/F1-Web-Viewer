@@ -55,7 +55,7 @@ export default {
         filter_season: year,
         filter_objectSubtype: "Meeting",
         filter_orderByFom: "Y",
-        sortOrder: "asc",
+        sortOrder: "desc",
         orderBy: "meeting_End_Date"
       }
     });
