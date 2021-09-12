@@ -30,9 +30,7 @@ script:
         /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn release --linux --win"
 
         echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-        docker build .
-
-        docker tag bootsie123/f1-web-viewer:latest bootsie123/f1-web-viewer:$(node -p -e "require('./package.json').version")
+        docker buildx build --platform linux/amd64,linux/arm64 -t bootsie123/f1-web-viewer:latest -t bootsie123/f1-web-viewer:$(node -p -e "require('./package.json').version") .
         docker push bootsie123/f1-web-viewer --all-tags
     else
       npm run release
