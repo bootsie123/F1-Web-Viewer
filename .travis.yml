@@ -18,6 +18,11 @@ cache:
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
 
+addons:
+  apt:
+    packages:
+      - docker-ce
+
 script:
   - |
     if [ "$TRAVIS_OS_NAME" == "linux" ]; then
