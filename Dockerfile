@@ -10,10 +10,7 @@ COPY package*.json ./
 RUN apk add --no-cache tini
 ENTRYPOINT ["/sbin/tini", "--"]
 
-RUN apk add --no-cache g++ make python
-
 RUN npm ci
-RUN npm install --only=dev
 
 COPY . .
 

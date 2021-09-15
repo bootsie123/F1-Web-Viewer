@@ -8,7 +8,7 @@ matrix:
       env:
         - ELECTRON_CACHE=$HOME/.cache/electron
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-      script: 
+      script:
         - npm run release
 
     - name: Electron Release (LINUX, WIN)
@@ -24,7 +24,7 @@ matrix:
           -v ~/.cache/electron-builder:/root/.cache/electron-builder \
           electronuserland/builder:wine \
           /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn release --linux --win"
-            
+
     - name: Docker Release
       os: linux
       services: docker
@@ -36,14 +36,15 @@ matrix:
         - sudo apt-get update
         - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
         - mkdir -vp ~/.docker/cli-plugins/
-        - curl --silent -L "https://github.com/docker/buildx/releases/download/v0.3.0/buildx-v0.3.0.linux-amd64" > ~/.docker/cli-plugins/docker-buildx
+        - curl --silent -L "https://github.com/docker/buildx/releases/download/v0.6.3/buildx-v0.6.3.linux-amd64" > ~/.docker/cli-plugins/docker-buildx
         - chmod a+x ~/.docker/cli-plugins/docker-buildx
         - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
         - docker buildx create --name builder --driver docker-container --use
+        - docker --version
       script:
         - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
         - docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm64 -t bootsie123/f1-web-viewer:latest -t bootsie123/f1-web-viewer:v$(node -p -e "require('./package.json').version") .
-        - docker push --all-tags bootsie123/f1-web-viewer 
+        - docker push --all-tags bootsie123/f1-web-viewer
 
 cache:
   directories:

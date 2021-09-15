@@ -59,11 +59,11 @@
     border-color: #b5b5b5;
   }
 
-  ::v-deep(.ri-check-fill) {
+  ::v-deep .ri-check-fill {
     color: black;
   }
 
-  ::v-deep(.ri-check-line) {
+  ::v-deep .ri-check-line {
     color: #c5c5c5 !important;
   }
 </style>
