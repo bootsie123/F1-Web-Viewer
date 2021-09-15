@@ -1,29 +1,29 @@
 matrix:
   include:
-    - name: Electron Release (OSX)
-      os: osx
-      osx_image: xcode10.2
-      language: node_js
-      node_js: "12"
-      env:
-        - ELECTRON_CACHE=$HOME/.cache/electron
-        - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
-      script:
-        - npm run release
-
-    - name: Electron Release (LINUX, WIN)
-      os: linux
-      services: docker
-      language: generic
-      script:
-        - |
-          docker run --rm \
-          -e GH_TOKEN=$GH_TOKEN \
-          -v ${PWD}:/project \
-          -v ~/.cache/electron:/root/.cache/electron \
-          -v ~/.cache/electron-builder:/root/.cache/electron-builder \
-          electronuserland/builder:wine \
-          /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn release --linux --win"
+    # - name: Electron Release (OSX)
+    #   os: osx
+    #   osx_image: xcode10.2
+    #   language: node_js
+    #   node_js: "12"
+    #   env:
+    #     - ELECTRON_CACHE=$HOME/.cache/electron
+    #     - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+    #   script:
+    #     - npm run release
+    #
+    # - name: Electron Release (LINUX, WIN)
+    #   os: linux
+    #   services: docker
+    #   language: generic
+    #   script:
+    #     - |
+    #       docker run --rm \
+    #       -e GH_TOKEN=$GH_TOKEN \
+    #       -v ${PWD}:/project \
+    #       -v ~/.cache/electron:/root/.cache/electron \
+    #       -v ~/.cache/electron-builder:/root/.cache/electron-builder \
+    #       electronuserland/builder:wine \
+    #       /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn release --linux --win"
 
     - name: Docker Release
       os: linux
