@@ -43,7 +43,7 @@ matrix:
         - docker --version
       script:
         - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-        - docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm64 -t bootsie123/f1-web-viewer:latest -t bootsie123/f1-web-viewer:v$(node -p -e "require('./package.json').version") .
+        - travis_wait docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm64 -t bootsie123/f1-web-viewer:latest -t bootsie123/f1-web-viewer:v$(node -p -e "require('./package.json').version") .
         - docker push --all-tags bootsie123/f1-web-viewer
 
 cache:
