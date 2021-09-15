@@ -1,16 +1,49 @@
 matrix:
   include:
-    - os: osx
+    - stage: Electron Release (OSX)
+      os: osx
       osx_image: xcode10.2
       language: node_js
       node_js: "12"
       env:
         - ELECTRON_CACHE=$HOME/.cache/electron
         - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+      script: 
+        - npm run release
 
-    - os: linux
+    - stage: Electron Release (LINUX, WIN)
+      os: linux
       services: docker
       language: generic
+      script:
+        - docker run --rm \
+        -e GH_TOKEN=$GH_TOKEN \
+        -v ${PWD}:/project \
+        -v ~/.cache/electron:/root/.cache/electron \
+        -v ~/.cache/electron-builder:/root/.cache/electron-builder \
+        electronuserland/builder:wine \
+        /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn release --linux --win"
+            
+    - stage: Docker Release
+      os: linux
+      services: docker
+      language: generic
+      before_install:
+        - sudo rm -rf /var/lib/apt/lists/*
+        - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) edge"
+        - sudo apt-get update
+        - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+        - mkdir -vp ~/.docker/cli-plugins/
+        - curl --silent -L "https://github.com/docker/buildx/releases/download/v0.3.0/buildx-v0.3.0.linux-amd64" > ~/.docker/cli-plugins/docker-buildx
+        - chmod a+x ~/.docker/cli-plugins/docker-buildx
+        - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+        - docker buildx rm builder
+        - docker buildx create --name builder --driver docker-container --use
+      script:
+        - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+        - docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm64 -t bootsie123/f1-web-viewer:latest -t bootsie123/f1-web-viewer:v$(node -p -e "require('./package.json').version") .
+        - docker push --all-tags bootsie123/f1-web-viewer 
 
 cache:
   directories:
@@ -18,40 +51,6 @@ cache:
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
 
-before_install:
-  - |
-    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      sudo rm -rf /var/lib/apt/lists/*
-      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-      sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) edge"
-      sudo apt-get update
-      sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
-      mkdir -vp ~/.docker/cli-plugins/
-      curl --silent -L "https://github.com/docker/buildx/releases/download/v0.3.0/buildx-v0.3.0.linux-amd64" > ~/.docker/cli-plugins/docker-buildx
-      chmod a+x ~/.docker/cli-plugins/docker-buildx
-
-      docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-      docker buildx rm builder
-      docker buildx create --name builder --driver docker-container --use
-    fi
-
-script:
-  - |
-    if [ "$TRAVIS_OS_NAME" == "linux" ]; then
-      docker run --rm \
-        -e GH_TOKEN=$GH_TOKEN \
-        -v ${PWD}:/project \
-        -v ~/.cache/electron:/root/.cache/electron \
-        -v ~/.cache/electron-builder:/root/.cache/electron-builder \
-        electronuserland/builder:wine \
-        /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn release --linux --win"
-
-      echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-      docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm64 -t bootsie123/f1-web-viewer:latest -t bootsie123/f1-web-viewer:v$(node -p -e "require('./package.json').version") .
-      docker push --all-tags bootsie123/f1-web-viewer
-    else
-      npm run release
-    fi
 before_cache:
   - rm -rf $HOME/.cache/electron-builder/wine
 
