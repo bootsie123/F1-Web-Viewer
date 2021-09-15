@@ -29,7 +29,11 @@ before_install:
       mkdir -vp ~/.docker/cli-plugins/
       curl --silent -L "https://github.com/docker/buildx/releases/download/v0.3.0/buildx-v0.3.0.linux-amd64" > ~/.docker/cli-plugins/docker-buildx
       chmod a+x ~/.docker/cli-plugins/docker-buildx
-      docker buildx create --use
+
+      docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+      docker buildx rm builder
+      docker buildx create --name builder --driver docker-container --use
+      docker buildx inspect --bootstrap
     fi
 
 script:
@@ -44,8 +48,8 @@ script:
         /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn release --linux --win"
 
       echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-      docker buildx build --platform linux/amd64,linux/arm64 -t bootsie123/f1-web-viewer:latest -t bootsie123/f1-web-viewer:$(node -p -e "require('./package.json').version") .
-      docker push bootsie123/f1-web-viewer --all-tags
+      docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm64 -t bootsie123/f1-web-viewer:latest -t bootsie123/f1-web-viewer:$(node -p -e "require('./package.json').version") .
+      # docker push bootsie123/f1-web-viewer --all-tags
     else
       npm run release
     fi
@@ -55,3 +59,4 @@ before_cache:
 branches:
   only:
     - production
+    - travis-test
