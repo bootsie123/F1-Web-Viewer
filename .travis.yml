@@ -1,6 +1,6 @@
 matrix:
   include:
-    - stage: Electron Release (OSX)
+    - name: Electron Release (OSX)
       os: osx
       osx_image: xcode10.2
       language: node_js
@@ -11,7 +11,7 @@ matrix:
       script: 
         - npm run release
 
-    - stage: Electron Release (LINUX, WIN)
+    - name: Electron Release (LINUX, WIN)
       os: linux
       services: docker
       language: generic
@@ -24,7 +24,7 @@ matrix:
         electronuserland/builder:wine \
         /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn release --linux --win"
             
-    - stage: Docker Release
+    - name: Docker Release
       os: linux
       services: docker
       language: generic
