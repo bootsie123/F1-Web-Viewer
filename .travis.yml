@@ -39,7 +39,6 @@ matrix:
         - curl --silent -L "https://github.com/docker/buildx/releases/download/v0.3.0/buildx-v0.3.0.linux-amd64" > ~/.docker/cli-plugins/docker-buildx
         - chmod a+x ~/.docker/cli-plugins/docker-buildx
         - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-        - docker buildx rm builder
         - docker buildx create --name builder --driver docker-container --use
       script:
         - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
