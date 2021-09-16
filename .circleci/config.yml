@@ -3,15 +3,17 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/base:2021.04
+      - image: cimg/node:14.17.6
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.7
       - run:
           command: |
             docker version
             docker buildx version
+            docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm64 \
+            -t bootsie123/f1-web-viewer:latest \
+            -t bootsie123/f1-web-viewer:v$(node -p -e "require('./package.json').version") \
+            . \
 
 workflows:
   docker-release:
