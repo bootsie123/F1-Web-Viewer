@@ -2,12 +2,16 @@ version: 2.1
 
 jobs:
   build:
+    filters:
+      branches:
+        only:
+          - circleci-test
     docker:
       - image: jdrouet/docker-with-buildx:stable
     steps:
       - checkout
       - setup_remote_docker:
-          version: 20.10
+          version: 20.10.7
       - run:
           command: |
             docker version
