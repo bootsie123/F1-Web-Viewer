@@ -13,7 +13,7 @@ jobs:
           command: docker version && docker buildx version
       - run:
           name: Docker Login
-          command: docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
+          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run:
           command: |
             docker context create environment
@@ -35,3 +35,4 @@ workflows:
             branches:
               only:
                 - circleci-test
+          context: DockerHub
