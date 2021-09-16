@@ -74,7 +74,13 @@ workflows:
           context: DockerHub
   electron-release:
     jobs:
-      - electron-release:
+      - electron-release-linux-win:
+          filters:
+            branches:
+              only:
+                - circleci-test
+          context: GitHub
+      - electron-release-osx:
           filters:
             branches:
               only:
