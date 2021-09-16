@@ -9,12 +9,13 @@ jobs:
       - setup_remote_docker:
           version: 20.10.7
       - run:
-          name: Docker Info
+          name: Docker info
           command: docker version && docker buildx version
       - run:
-          name: Docker Login
+          name: Docker login
           command: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run:
+          name: Build multiarch image
           command: |
             docker context create environment
             docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
