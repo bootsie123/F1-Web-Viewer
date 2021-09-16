@@ -14,7 +14,7 @@ jobs:
             docker buildx version
             docker context create environment
             docker buildx create --name multiarch-builder --driver docker-container --use environment
-            docker buildx inspect builder
+            docker buildx inspect multiarch-builder
             docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm64 \
             -t bootsie123/f1-web-viewer:latest \
             -t bootsie123/f1-web-viewer:v$(node -p -e "require('./package.json').version") \
