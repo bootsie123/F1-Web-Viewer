@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: jdrouet/docker-with-buildx:stable
+      - image: cimg/base:2021.04
     steps:
       - checkout
       - setup_remote_docker:
