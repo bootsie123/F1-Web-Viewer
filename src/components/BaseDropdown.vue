@@ -1,6 +1,6 @@
 <template>
-  <div class="field is-horizontal">
-    <div v-if="label" class="field-label is-normal">
+  <div class="field" :class="{ 'is-horizontal': horizontal }">
+    <div v-if="label" :class="[horizontal ? 'field-label' : '', 'is-normal']">
       <label class="label">{{ label }}</label>
     </div>
     <div class="field-body">
@@ -31,6 +31,7 @@
       label: String,
       loading: Boolean,
       disabled: Boolean,
+      horizontal: Boolean,
       options: {
         type: Array,
         required: true

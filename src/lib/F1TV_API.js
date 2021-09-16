@@ -1,8 +1,15 @@
 import api from "@/store/axios";
 import axios from "axios";
 
-const STREAM_TYPE = "BIG_SCREEN_HLS";
-const VIDEO_QUERY = `2.0/R/ENG/${STREAM_TYPE}/ALL/PAGE/SEARCH/VOD/F1_TV_Pro_Annual/2?`;
+import store from "@/store";
+
+const getStreamType = () => {
+  return store.getters.streamType;
+};
+
+const getVideoQuery = () => {
+  return `2.0/R/ENG/${getStreamType()}/ALL/PAGE/SEARCH/VOD/F1_TV_Pro_Annual/2?`;
+};
 
 export default {
   authenticate: (username, password) => {
@@ -50,7 +57,7 @@ export default {
     });
   },
   getEventsFromSeason: year => {
-    return api.get(VIDEO_QUERY, {
+    return api.get(getVideoQuery(), {
       params: {
         filter_season: year,
         filter_objectSubtype: "Meeting",
@@ -61,7 +68,7 @@ export default {
     });
   },
   getSessionFromEvent: async eventId => {
-    return api.get(VIDEO_QUERY, {
+    return api.get(getVideoQuery(), {
       params: {
         filter_MeetingKey: eventId,
         sortOrder: "asc",
@@ -70,10 +77,10 @@ export default {
     });
   },
   getChannelsFromSession: async contentId => {
-    return api.get(`2.0/R/ENG/${STREAM_TYPE}/ALL/CONTENT/VIDEO/${contentId}/F1_TV_Pro_Annual/2`);
+    return api.get(`2.0/R/ENG/${getStreamType()}/ALL/CONTENT/VIDEO/${contentId}/F1_TV_Pro_Annual/2`);
   },
   getAuthenticatedUrl: (url, token) => {
-    return api.get(`1.0/R/ENG/${STREAM_TYPE}/ALL/${url}`, {
+    return api.get(`1.0/R/ENG/${getStreamType()}/ALL/${url}`, {
       headers: {
         ascendontoken: token
       }

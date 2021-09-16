@@ -7,6 +7,7 @@
         :options="seriesList"
         :disabled="seriesList.length < 2"
         :loading="seriesLoading"
+        horizontal
       />
       <BaseDropdown
         label="Season"
@@ -14,6 +15,7 @@
         :options="seasons"
         :disabled="seasons.length < 2"
         :loading="seasonsLoading"
+        horizontal
       />
       <BaseDropdown
         label="Events"
@@ -21,6 +23,7 @@
         :options="events"
         :disabled="events.length < 2"
         :loading="eventsLoading"
+        horizontal
       />
       <BaseDropdown
         label="Session"
@@ -28,6 +31,7 @@
         :options="sessions"
         :disabled="sessions.length < 2"
         :loading="sessionsLoading"
+        horizontal
       />
       <button class="button is-fullwidth" @click="updateSources" :disabled="channels.length < 1">
         Update Existing Feeds

@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <h2 class="subtitle has-text-centered">Settings</h2>
+    <BaseDropdown class="streamType" label="Stream Type" v-model="streamType" :options="streamTypes" />
     <BaseNumberInput label="Layout Columns" placeholder="12" type="number" :min="1" v-model.number="layoutColumns" />
     <BaseNumberInput
       label="Layout Row Height (pixels)"
@@ -40,17 +41,38 @@
 
   import BaseIconButton from "@/components/BaseIconButton";
   import BaseNumberInput from "@/components/BaseNumberInput";
+  import BaseDropdown from "@/components/BaseDropdown";
 
   export default {
     name: "Settings",
     components: {
       LayoutItem,
       BaseIconButton,
-      BaseNumberInput
+      BaseNumberInput,
+      BaseDropdown
     },
     data() {
       return {
-        newLayoutName: ""
+        newLayoutName: "",
+        streamTypes: [
+          {
+            text: "Web",
+            value: "WEB_HLS",
+            selected: true
+          },
+          {
+            text: "Big Screen",
+            value: "BIG_SCREEN_HLS"
+          },
+          {
+            text: "Tablet",
+            value: "TABLET_HLS"
+          },
+          {
+            text: "Mobile",
+            value: "MOBILE_HLS"
+          }
+        ]
       };
     },
     computed: {
@@ -68,6 +90,14 @@
         },
         set(val) {
           this.setLayoutRowHeight(val);
+        }
+      },
+      streamType: {
+        get() {
+          return this.$store.getters.streamType;
+        },
+        set(val) {
+          this.setStreamType(val);
         }
       },
       ...mapGetters(["layout", "layouts"])
@@ -104,7 +134,7 @@
         this.updateLayouts(this.layouts);
       },
       ...mapActions(["addToLayouts", "setActiveLayout"]),
-      ...mapMutations(["updateLayouts", "setLayoutColumns", "setLayoutRowHeight"])
+      ...mapMutations(["updateLayouts", "setLayoutColumns", "setLayoutRowHeight", "setStreamType"])
     }
   };
 </script>
@@ -113,6 +143,14 @@
   .container {
     padding: 1em;
     padding-bottom: 2.5em;
+  }
+
+  .streamType {
+    margin-top: 1.5em;
+  }
+
+  .streamType ::v-deep.label {
+    font-weight: 500;
   }
 
   .subtitle:nth-of-type(2) {

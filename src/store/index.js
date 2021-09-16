@@ -14,7 +14,8 @@ let savedState = {
   layout: JSON.parse(localStorage.getItem("layout")),
   token: localStorage.getItem("token"),
   layoutColumns: parseInt(localStorage.getItem("layoutColumns")),
-  layoutRowHeight: parseInt(localStorage.getItem("layoutRowHeight"))
+  layoutRowHeight: parseInt(localStorage.getItem("layoutRowHeight")),
+  streamType: localStorage.getItem("streamType")
 };
 
 if (isElectron) {
@@ -27,9 +28,18 @@ if (isElectron) {
     layout: store.get("layout"),
     token: store.get("token"),
     layoutColumns: store.get("layoutColumns"),
-    layoutRowHeight: store.get("layoutRowHeight")
+    layoutRowHeight: store.get("layoutRowHeight"),
+    streamType: store.get("streamType")
   };
 }
+
+const updateStore = (key, local, electron) => {
+  localStorage.setItem(key, local);
+
+  if (isElectron) {
+    store.set(key, electron || local);
+  }
+};
 
 export default new Vuex.Store({
   state: {
@@ -41,7 +51,8 @@ export default new Vuex.Store({
     playback: true,
     username: "",
     password: "",
-    authError: ""
+    authError: "",
+    streamType: savedState.streamType || "WEB_HLS"
   },
   getters: {
     layouts: state => state.layouts,
@@ -51,7 +62,8 @@ export default new Vuex.Store({
     playback: state => state.playback,
     token: state => state.token,
     authError: state => state.authError,
-    authenticated: state => !!state.token
+    authenticated: state => !!state.token,
+    streamType: state => state.streamType
   },
   actions: {
     setLayout({ commit, dispatch }, layout) {
@@ -123,55 +135,36 @@ export default new Vuex.Store({
     updateLayouts(state, layouts) {
       state.layouts = layouts;
 
-      localStorage.setItem("layouts", JSON.stringify(layouts));
-
-      if (isElectron) {
-        store.set("layouts", layouts);
-      }
+      updateStore("layouts", JSON.stringify(layouts), layouts);
     },
     saveLayout(state, layout) {
-      localStorage.setItem("layout", JSON.stringify(layout));
-
-      if (isElectron) {
-        store.set("layout", layout);
-      }
+      updateStore("layout", JSON.stringify(layout), layout);
     },
     setItem(state, { index, key, value }) {
       state.layout[index][key] = value;
 
-      localStorage.setItem("layout", JSON.stringify(state.layout));
-
-      if (isElectron) {
-        store.set("layout", state.layout);
-      }
+      updateStore("layout", JSON.stringify(state.layout), state.layout);
     },
     setLayoutColumns(state, columns) {
       state.layoutColumns = columns;
 
-      localStorage.setItem("layoutColumns", columns);
-
-      if (isElectron) {
-        store.set("layoutColumns", columns);
-      }
+      updateStore("layoutColumns", columns);
     },
     setLayoutRowHeight(state, rowHeight) {
       state.layoutRowHeight = rowHeight;
 
-      localStorage.setItem("layoutRowHeight", rowHeight);
+      updateStore("layoutRowHeight", rowHeight);
+    },
+    setStreamType(state, streamType) {
+      state.streamType = streamType;
 
-      if (isElectron) {
-        store.set("layoutRowHeight", rowHeight);
-      }
+      updateStore("streamType", streamType);
     },
     setPlayback(state, playback) {
       state.playback = playback;
     },
     updateToken(state, token) {
-      localStorage.setItem("token", token);
-
-      if (isElectron) {
-        store.set("token", token);
-      }
+      updateStore("token", token);
 
       state.token = token;
     },
