@@ -28,6 +28,9 @@ jobs:
             -t bootsie123/f1-web-viewer:v$(node -p -e "require('./package.json').version") \
             . \
       - run:
+          name: Docker images
+          command: docker images
+      - run:
           name: Push image
           command: docker push --all-tags bootsie123/f1-web-viewer
   electron-release-osx:
@@ -41,6 +44,9 @@ jobs:
       - run:
           name: Node version
           command: node --version && npm --version
+      - run:
+          name: NPM build
+          command: npm build
       - run:
           name: Electron release (OSX)
           command: npm run release
@@ -57,7 +63,7 @@ jobs:
           command: |
             docker run --rm \
             -e GH_TOKEN=$GH_TOKEN \
-            -v ${PWD}:/project \
+            -v ${CIRCLE_WORKING_DIRECTORY}:/project \
             -v ~/.cache/electron:/root/.cache/electron \
             -v ~/.cache/electron-builder:/root/.cache/electron-builder \
             electronuserland/builder:wine \
