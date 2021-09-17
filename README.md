@@ -118,7 +118,7 @@ Yes! Just click on the clock icon on the feed you want all the other feeds to sy
 
 ## Acknowledgements
 
-**Special thanks To:** [SoMuchForSubtlety](https://github.com/SoMuchForSubtlety) (F1 Viewer) and [robvdpol](https://github.com/robvdpol) (RaceControl) for giving me a framework to work with and mapping out the F1TV API!
+**Special thanks to:** [SoMuchForSubtlety](https://github.com/SoMuchForSubtlety) (F1 Viewer) and [robvdpol](https://github.com/robvdpol) (RaceControl) for giving me a framework to work with and mapping out the F1TV API!
 
 Other thanks to:
 
