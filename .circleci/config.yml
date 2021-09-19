@@ -15,7 +15,7 @@ jobs:
           name: Docker login
           command: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run:
-          name: Build multiarch image
+          name: Build and push multiarch image
           command: |
             docker context create environment
             docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
@@ -23,16 +23,11 @@ jobs:
 
             docker buildx inspect multiarch-builder
 
-            docker buildx build --platform linux/amd64,linux/arm/v7,linux/arm64 \
+            docker buildx build --push \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 \
             -t bootsie123/f1-web-viewer:latest \
             -t bootsie123/f1-web-viewer:v$(node -p -e "require('./package.json').version") \
             . \
-      - run:
-          name: Docker images
-          command: docker images
-      - run:
-          name: Push image
-          command: docker push --all-tags bootsie123/f1-web-viewer
   electron-release-osx:
     macos:
       xcode: 11.3.0
@@ -44,6 +39,9 @@ jobs:
       - run:
           name: Node version
           command: node --version && npm --version
+      - run:
+          name: Install node modules
+          command: npm install
       - run:
           name: NPM build
           command: npm build
