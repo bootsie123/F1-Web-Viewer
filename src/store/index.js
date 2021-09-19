@@ -52,7 +52,7 @@ export default new Vuex.Store({
     username: "",
     password: "",
     authError: "",
-    streamType: savedState.streamType || "WEB_HLS"
+    streamType: savedState.streamType || "BIG_SCREEN_HLS"
   },
   getters: {
     layouts: state => state.layouts,

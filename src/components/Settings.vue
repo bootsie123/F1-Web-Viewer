@@ -58,19 +58,22 @@
           {
             text: "Web",
             value: "WEB_HLS",
-            selected: true
+            disabled: true
           },
           {
             text: "Big Screen",
-            value: "BIG_SCREEN_HLS"
+            value: "BIG_SCREEN_HLS",
+            selected: true
           },
           {
             text: "Tablet",
-            value: "TABLET_HLS"
+            value: "TABLET_HLS",
+            disabled: true
           },
           {
             text: "Mobile",
-            value: "MOBILE_HLS"
+            value: "MOBILE_HLS",
+            disabled: true
           }
         ]
       };
