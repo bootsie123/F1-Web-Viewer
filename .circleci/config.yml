@@ -31,6 +31,7 @@ jobs:
             -t bootsie123/f1-web-viewer:latest \
             -t bootsie123/f1-web-viewer:v$(node -p -e "require('./package.json').version") \
             . \
+            
   electron-release-osx:
     macos:
       xcode: 11.3.0
