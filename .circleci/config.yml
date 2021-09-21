@@ -64,25 +64,25 @@ jobs:
           command: yarn --link-duplicates --pure-lockfile && yarn release --linux --win
 
 workflows:
-  # docker-release:
-  #   jobs:
-  #     - docker-release:
-  #         filters:
-  #           branches:
-  #             only:
-  #               - circleci-test
-  #         context: DockerHub
+  docker-release:
+    jobs:
+      - docker-release:
+          filters:
+            branches:
+              only:
+                - production
+          context: DockerHub
   electron-release:
     jobs:
       - electron-release-linux-win:
           filters:
             branches:
               only:
-                - circleci-test
+                - production
           context: GitHub
       - electron-release-osx:
           filters:
             branches:
               only:
-                - circleci-test
+                - production
           context: GitHub
