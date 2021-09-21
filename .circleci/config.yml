@@ -1,0 +1,88 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.7.0
+
+jobs:
+  docker-release:
+    docker:
+      - image: cimg/node:14.17.6
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.7
+      - run:
+          name: Docker info
+          command: docker version && docker buildx version
+      - run:
+          name: Docker login
+          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run:
+          name: Build and push multiarch image
+          command: |
+            docker context create environment
+            docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+            docker buildx create --name multiarch-builder --driver docker-container --use environment
+
+            docker buildx inspect multiarch-builder
+
+            docker buildx build --push \
+            --platform linux/amd64,linux/arm/v7,linux/arm64 \
+            -t bootsie123/f1-web-viewer:latest \
+            -t bootsie123/f1-web-viewer:v$(node -p -e "require('./package.json').version") \
+            . \
+  electron-release-osx:
+    macos:
+      xcode: 11.3.0
+    environment:
+      ELECTRON_CACHE: $HOME/.cache/electron
+      ELECTRON_BUILDER_CACHE: $HOME/.cache/electron-builder
+    steps:
+      - checkout
+      - node/install:
+          node-version: "14.2.0"
+      - run:
+          name: Node version
+          command: node --version && npm --version
+      - run:
+          name: Install node modules
+          command: npm ci --include=dev
+      - run:
+          name: NPM build
+          command: npm run build
+      - run:
+          name: Electron release (OSX)
+          command: npm run release
+
+  electron-release-linux-win:
+    docker:
+      - image: electronuserland/builder:wine
+    steps:
+      - checkout
+      - run:
+          name: Electron release (LINUX, WIN)
+          command: yarn --link-duplicates --pure-lockfile && yarn release --linux --win
+
+workflows:
+  docker-release:
+    jobs:
+      - docker-release:
+          filters:
+            branches:
+              only:
+                - production
+          context: DockerHub
+  electron-release:
+    jobs:
+      - electron-release-linux-win:
+          filters:
+            branches:
+              only:
+                - production
+          context: GitHub
+      - electron-release-osx:
+          filters:
+            branches:
+              only:
+                - production
+          context: GitHub
