@@ -56,22 +56,12 @@ jobs:
 
   electron-release-linux-win:
     docker:
-      - image: cimg/base:2021.04
+      - image: electronuserland/builder:wine
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 20.10.7
-      - run: ls -la ${PWD}
       - run:
           name: Electron release (LINUX, WIN)
-          command: |
-            docker run --rm \
-            -e GH_TOKEN=$GH_TOKEN \
-            -v ${PWD}:/project \
-            -v ~/.cache/electron:/root/.cache/electron \
-            -v ~/.cache/electron-builder:/root/.cache/electron-builder \
-            electronuserland/builder:wine \
-            /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn release --linux --win"
+          command: yarn --link-duplicates --pure-lockfile && yarn release --linux --win
 
 workflows:
   # docker-release:
