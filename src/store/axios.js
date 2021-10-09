@@ -8,7 +8,11 @@ const options = { baseURL: API_URL };
 
 if (process.env.VUE_APP_NETLIFY) {
   options.baseURL = CORS_PROXY + API_URL;
-  options.headers.common["x-cors-grida-api-key"] = process.env.VUE_APP_API_KEY;
+  options.headers = {
+    common: {
+      "x-cors-grida-api-key": process.env.VUE_APP_API_KEY
+    }
+  };
 } else if (!process.env.IS_ELECTRON) {
   options.baseURL = "/proxy/" + API_URL;
 }
