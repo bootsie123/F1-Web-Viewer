@@ -1,4 +1,5 @@
 import axios from "axios";
+import videojs from "video.js";
 import store from "@/store";
 
 const CORS_PROXY = "https://damp-mouse-7bce.f1webviewer.workers.dev?";
@@ -7,11 +8,22 @@ const API_URL = "https://f1tv.formula1.com";
 const options = { baseURL: API_URL };
 
 if (process.env.VUE_APP_NETLIFY) {
+  const keyHeaders = {
+    "x-cors-grida-api-key": process.env.VUE_APP_API_KEY
+  };
+
   options.baseURL = CORS_PROXY + API_URL;
   options.headers = {
-    common: {
-      "x-cors-grida-api-key": process.env.VUE_APP_API_KEY
-    }
+    common: { ...keyHeaders }
+  };
+
+  videojs.Vhs.xhr.beforeRequest = options => {
+    options.headers = {
+      ...keyHeaders,
+      ...options.headers
+    };
+
+    return options;
   };
 } else if (!process.env.IS_ELECTRON) {
   options.baseURL = "/proxy/" + API_URL;
