@@ -2,7 +2,7 @@
   "name": "f1-web-viewer",
   "description": "A simple grid-based web viewer for Formula 1",
   "author": "bootsie123",
-  "version": "1.7.10",
+  "version": "1.7.11",
   "private": true,
   "homepage": "https://github.com/bootsie123/F1-Web-Viewer",
   "scripts": {
@@ -27,6 +27,7 @@
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
     "cors-anywhere": "^0.4.4",
+    "dotenv": "^10.0.0",
     "electron-store": "^8.0.0",
     "electron-updater": "^4.3.9",
     "express": "^4.17.1",

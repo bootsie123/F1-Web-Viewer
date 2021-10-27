@@ -6,6 +6,8 @@ const cors = require("cors");
 const history = require("connect-history-api-fallback");
 const fetch = require("node-fetch");
 
+require("dotenv").config();
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
