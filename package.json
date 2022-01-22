@@ -33,7 +33,7 @@
     "express": "^4.17.1",
     "helmet": "^4.4.1",
     "mobile-drag-drop": "^2.3.0-rc.2",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.1.1",
     "remixicon": "^2.5.0",
     "serverless-http": "^2.7.0",
     "uuid": "^8.3.2",
