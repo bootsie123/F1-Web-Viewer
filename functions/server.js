@@ -74,6 +74,38 @@ if (!process.env.AWS_EXECUTION_ENV) {
     cors_proxy.emit("request", req, res);
   });
 
+  app.get("/playTokenCookie", async (req, res) => {
+    const url = req.query.url;
+
+    if (!url) {
+      res.status(400).send("Unable to get playToken without a URL");
+    }
+
+    try {
+      const data = await fetch(url, {
+        method: "HEAD"
+      });
+
+      const cookie = data.headers
+        .get("set-cookie")
+        .split(";")
+        .map(v => v.split("="))
+        .reduce((array, v) => {
+          array[decodeURIComponent(v[0])] = decodeURIComponent(v[1]);
+
+          return array;
+        }, {});
+
+      res.status(data.status).json({
+        cookie
+      });
+    } catch (err) {
+      console.error(err);
+
+      res.status(500).json(err);
+    }
+  });
+
   app.listen(PORT, () => console.info(`Server running on port ${PORT}`));
 }
 

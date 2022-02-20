@@ -85,5 +85,10 @@ export default {
         ascendontoken: token
       }
     });
+  },
+  playTokenCookie: url => {
+    return axios.get("/playTokenCookie", {
+      params: { url }
+    });
   }
 };

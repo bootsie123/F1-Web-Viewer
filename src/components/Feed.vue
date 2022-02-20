@@ -125,10 +125,18 @@
             if (process.env.VUE_APP_NETLIFY) {
               url = "https://cors.bridged.cc/" + url;
             } else if (!process.env.IS_ELECTRON) {
+              const playTokenCookie = await F1TV_API.playTokenCookie(url);
+              const cookie = playTokenCookie.data.cookie;
+
+              document.cookie = `playToken=${cookie.playToken};path=${cookie.path};samesite=None;secure;`;
+
               url = "/proxy/" + url;
             }
 
-            this.player.src(url);
+            this.player.src({
+              src: url,
+              withCredentials: true
+            });
           }
         } catch (err) {
           console.error(err);
