@@ -8,6 +8,8 @@
 
 ### Please self host the application locally or through Docker. Or alternatively, use the desktop application. Updates can be found under issue #[35](https://github.com/bootsie123/F1-Web-Viewer/issues/35) (last updated 2/20/22)
 
+<br>
+
 A simple grid-based web viewer for Formula 1. Simply login with your F1TV credentials, select the season, event, and session, and then drag and drop the channels you want to watch into the grid! Unable to install it? No problem! The application can be fully accessed [here](https://f1webviewer.netlify.app)
 
 ![](assets/screenshot.png)
