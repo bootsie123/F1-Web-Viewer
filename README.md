@@ -6,7 +6,7 @@
 
 # **IMPORTANT** - Live website currently broken
 
-### Please self host the application locally or through Docker. Or alternatively, use the desktop application. Updates can be found under issue #[35](https://github.com/bootsie123/F1-Web-Viewer/issues/35) (last updated 2/20/22)
+### Please self host the application locally or through Docker. Or alternatively, use the desktop application. Updates can be found under issue [#35](https://github.com/bootsie123/F1-Web-Viewer/issues/35) (last updated 2/20/22)
 
 <br>
 
