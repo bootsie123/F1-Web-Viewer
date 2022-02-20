@@ -9,7 +9,7 @@ const fetch = require("node-fetch");
 require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.SERVER_PORT || 3000;
 
 if (app.get("env") === "production") {
   app.set("trust proxy", 1);

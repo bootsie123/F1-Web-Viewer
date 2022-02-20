@@ -89,7 +89,7 @@ From there, you can then access the server on port `3000` of your Docker host. F
 To change the default port of the web server locally you can simply rename the `.env.example` file in the main directory of the application to `.env`. From there, edit the following:
 
 ```bash
-PORT=3000 //Change this value here to the desired port
+SERVER_PORT=3000 //Change this value here to the desired port
 ```
 
 For Docker, simply start the container with your desired mapped ports. For example, to access the web server from port `8080` use:
