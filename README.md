@@ -4,6 +4,10 @@
 [![CircleCI Build Status](https://circleci.com/gh/bootsie123/F1-Web-Viewer/tree/production.svg?style=svg)](https://circleci.com/gh/bootsie123/F1-Web-Viewer/tree/production)
 [![GitHub](https://img.shields.io/github/license/bootsie123/F1-Web-Viewer)](https://github.com/bootsie123/F1-Web-Viewer/blob/master/LICENSE)
 
+# **IMPORTANT** - Live website currently broken
+
+### Please self host the application locally or through Docker. Or alternatively, use the desktop application. Updates can be found under issue #[35](https://github.com/bootsie123/F1-Web-Viewer/issues/35) (last updated 2/20/22)
+
 A simple grid-based web viewer for Formula 1. Simply login with your F1TV credentials, select the season, event, and session, and then drag and drop the channels you want to watch into the grid! Unable to install it? No problem! The application can be fully accessed [here](https://f1webviewer.netlify.app)
 
 ![](assets/screenshot.png)
