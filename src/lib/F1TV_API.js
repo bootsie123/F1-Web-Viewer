@@ -86,8 +86,8 @@ export default {
       }
     });
   },
-  playTokenCookie: url => {
-    return axios.get("/playTokenCookie", {
+  playToken: url => {
+    return axios.get("/playToken", {
       params: { url }
     });
   }

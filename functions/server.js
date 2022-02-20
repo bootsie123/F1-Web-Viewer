@@ -71,10 +71,14 @@ if (!process.env.AWS_EXECUTION_ENV) {
   app.all("/proxy/:url*", (req, res) => {
     req.url = req.url.replace("/proxy/", "/");
 
+    if (req.headers.playtoken) {
+      req.headers.cookie = `playToken=${req.headers.playtoken}`;
+    }
+
     cors_proxy.emit("request", req, res);
   });
 
-  app.get("/playTokenCookie", async (req, res) => {
+  app.get("/playToken", async (req, res) => {
     const url = req.query.url;
 
     if (!url) {
@@ -86,18 +90,10 @@ if (!process.env.AWS_EXECUTION_ENV) {
         method: "HEAD"
       });
 
-      const cookie = data.headers
-        .get("set-cookie")
-        .split(";")
-        .map(v => v.split("="))
-        .reduce((array, v) => {
-          array[decodeURIComponent(v[0])] = decodeURIComponent(v[1]);
-
-          return array;
-        }, {});
+      const playToken = data.headers.get("set-cookie").split(";")[0].split("=")[1];
 
       res.status(data.status).json({
-        cookie
+        playToken
       });
     } catch (err) {
       console.error(err);
