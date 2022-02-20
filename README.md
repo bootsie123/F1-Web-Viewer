@@ -4,6 +4,12 @@
 [![CircleCI Build Status](https://circleci.com/gh/bootsie123/F1-Web-Viewer/tree/production.svg?style=svg)](https://circleci.com/gh/bootsie123/F1-Web-Viewer/tree/production)
 [![GitHub](https://img.shields.io/github/license/bootsie123/F1-Web-Viewer)](https://github.com/bootsie123/F1-Web-Viewer/blob/master/LICENSE)
 
+# **IMPORTANT** - Live website currently broken
+
+### Please self host the application locally or through Docker. Or alternatively, use the desktop application. Updates can be found under issue [#35](https://github.com/bootsie123/F1-Web-Viewer/issues/35) (last updated 2/20/22)
+
+<br>
+
 A simple grid-based web viewer for Formula 1. Simply login with your F1TV credentials, select the season, event, and session, and then drag and drop the channels you want to watch into the grid! Unable to install it? No problem! The application can be fully accessed [here](https://f1webviewer.netlify.app)
 
 ![](assets/screenshot.png)
@@ -89,7 +95,7 @@ From there, you can then access the server on port `3000` of your Docker host. F
 To change the default port of the web server locally you can simply rename the `.env.example` file in the main directory of the application to `.env`. From there, edit the following:
 
 ```bash
-PORT=3000 //Change this value here to the desired port
+SERVER_PORT=3000 //Change this value here to the desired port
 ```
 
 For Docker, simply start the container with your desired mapped ports. For example, to access the web server from port `8080` use:

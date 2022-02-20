@@ -125,6 +125,19 @@
             if (process.env.VUE_APP_NETLIFY) {
               url = "https://cors.bridged.cc/" + url;
             } else if (!process.env.IS_ELECTRON) {
+              const res = await F1TV_API.playToken(url);
+
+              this.player.on("loadstart", () => {
+                this.player.tech({ IWillNotUseThisInPlugins: true }).vhs.xhr.beforeRequest = options => {
+                  options.headers = {
+                    playToken: res.data.playToken,
+                    ...options.headers
+                  };
+
+                  return options;
+                };
+              });
+
               url = "/proxy/" + url;
             }
 
