@@ -141,9 +141,7 @@
               url = "/proxy/" + url;
             }
 
-            this.player.src({
-              src: url
-            });
+            this.player.src(url);
           }
         } catch (err) {
           console.error(err);
