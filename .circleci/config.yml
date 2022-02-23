@@ -12,6 +12,7 @@ jobs:
       - checkout
       - setup_remote_docker:
           version: 20.10.7
+          docker_layer_caching: true
       - run:
           name: Docker info
           command: docker version && docker buildx version
@@ -73,6 +74,7 @@ workflows:
             branches:
               only:
                 - production
+                - circleci-optimization
           context: DockerHub
   electron-release:
     jobs:
