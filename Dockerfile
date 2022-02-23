@@ -10,7 +10,7 @@ COPY package*.json ./
 RUN apk add --no-cache tini
 ENTRYPOINT ["/sbin/tini", "--"]
 
-RUN npm ci --include=dev
+RUN npm ci --also=dev
 
 COPY . .
 
