@@ -11,7 +11,7 @@ RUN apk add --no-cache tini
 ENTRYPOINT ["/sbin/tini", "--"]
 
 RUN npm ci
-RUN npm install --also=dev
+RUN npm install --only=dev
 
 COPY . .
 
