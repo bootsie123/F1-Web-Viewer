@@ -2,7 +2,7 @@
   "name": "f1-web-viewer",
   "description": "A simple grid-based web viewer for Formula 1",
   "author": "bootsie123",
-  "version": "1.7.13",
+  "version": "1.7.14",
   "private": true,
   "homepage": "https://github.com/bootsie123/F1-Web-Viewer",
   "scripts": {
@@ -38,6 +38,7 @@
     "serverless-http": "^2.7.0",
     "uuid": "^8.3.2",
     "video.js": "^7.16.0",
+    "videojs-contrib-dash": "^5.1.1",
     "videojs-contrib-quality-levels": "^2.1.0",
     "videojs-http-source-selector-2": "^1.1.10",
     "vue": "^2.6.11",

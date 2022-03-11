@@ -33,6 +33,7 @@
   import { mapGetters } from "vuex";
 
   import "videojs-contrib-quality-levels";
+  import "videojs-contrib-dash";
   import "videojs-http-source-selector-2";
 
   import F1TV_API from "@/lib/F1TV_API";
@@ -141,7 +142,21 @@
               url = "/proxy/" + url;
             }
 
-            this.player.src(url);
+            if (res.data.resultObj.streamType === "DASH") {
+              this.player.src({
+                src: url,
+                keySystemOptions: [
+                  {
+                    name: "com.widevine.alpha",
+                    options: {
+                      serverURL: res.data.resultObj.laURL
+                    }
+                  }
+                ]
+              });
+            } else {
+              this.player.src(url);
+            }
           }
         } catch (err) {
           console.error(err);
