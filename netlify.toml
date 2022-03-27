@@ -1,7 +1,6 @@
 [build]
   publish = "dist/web"
   command = "npm run build"
-  environment = { VUE_APP_NETLIFY = "true" }
 
 [dev]
   command = "npm run vue:serve"

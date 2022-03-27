@@ -77,7 +77,7 @@ export default {
     });
   },
   getChannelsFromSession: async contentId => {
-    return api.get(`2.0/R/ENG/${getStreamType()}/ALL/CONTENT/VIDEO/${contentId}/F1_TV_Pro_Annual/2`);
+    return api.get(`3.0/R/ENG/${getStreamType()}/ALL/CONTENT/VIDEO/${contentId}/F1_TV_Pro_Annual/2`);
   },
   getAuthenticatedUrl: (url, token) => {
     return api.get(`1.0/R/ENG/${getStreamType()}/ALL/${url}`, {
