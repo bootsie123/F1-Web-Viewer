@@ -30,7 +30,7 @@
     "dotenv": "^10.0.0",
     "electron-store": "^8.0.0",
     "electron-updater": "^4.3.9",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "helmet": "^4.4.1",
     "mobile-drag-drop": "^2.3.0-rc.2",
     "node-fetch": "^2.6.7",
